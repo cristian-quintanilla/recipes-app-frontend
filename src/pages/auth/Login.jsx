@@ -7,7 +7,7 @@ export const Login = () => {
   return (
     <main className="h-screen">
       <header className="py-4 px-2 lg:px-8">
-        <span className="font-semibold text-xl">Recipes App</span>
+        <span className="font-semibold text-xl">RecipesApp</span>
       </header>
 
       <section className="mt-4 lg:mt-12 mx-auto px-4 md:px-12 lg:px-24 flex flex-col md:flex-row gap-4 lg:gap-12">

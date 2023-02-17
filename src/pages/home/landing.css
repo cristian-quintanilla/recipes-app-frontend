@@ -1,0 +1,47 @@
+.hero {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    url('/assets/images/landing-background.jpg');
+}
+
+.recipes-row {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  padding: 5px 0px;
+}
+
+.recipes-row:hover {
+  overflow-x: auto;
+}
+
+.recipe-card {
+  background: #FFFFFF;
+  box-shadow: 0px 2px 17px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  margin-right: 2.5rem;
+}
+
+.recipe-card:first-child {
+  margin-left: .25rem;
+}
+
+.recipe-card:last-child {
+  margin-right: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .recipes-row {
+    overflow-x: auto;
+  }
+
+  .recipe-card {
+    margin-right: 1.5rem;
+  }
+
+  .recipe-card:last-child {
+    margin-right: .5rem;
+  }
+}
