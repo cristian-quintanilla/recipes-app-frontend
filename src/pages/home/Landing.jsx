@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+
+import { Header } from '../../components/Header';
 import './landing.css';
 
 export const Landing = () => {
@@ -28,22 +30,21 @@ export const Landing = () => {
   }, []);
 
   return (
-    <main className="h-screen">
-      <header className="py-4 px-2 lg:px-8 shadow bg-white">
-        <span className="font-semibold text-xl">RecipesApp</span>
-      </header>
+    <main className="h-screen flex flex-col">
+      <Header></Header>
 
       <section
         className="background-image pt-16 lg:pt-48 pb-96 lg:pb-60 pl-4 md:pl-16 lg:pl-32 xl:pl-40 flex flex-col justify-center hero"
+        style={{ 'marginTop': '68px' }}
       >
         <div className="w-full md:w-3/5 lg:w-2/5">
           <p className="text-xl font-semibold text-purple">RecipesApp</p>
         </div>
 
-        <h1 className="text-4xl lg:text-5xl w-full md:w-3/5 lg:w-2/5 text-white">Your best option for sharing</h1>
+        <h1 className="text-4xl lg:text-6xl w-full md:w-3/5 lg:w-2/5 text-white">Your best option for sharing</h1>
 
-        <div className="w-full md:w-3/5 lg:w-2/5 mt-6">
-          <p className="text-base text-white">
+        <div className="w-full md:w-3/5 lg:w-2/5 mt-2">
+          <p className="text-base lg:text-lg text-white">
             With RecipesApp you can search, comment and create recipes.
           </p>
         </div>
