@@ -1,33 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_RECIPES } from '../../graphql/queries';
 
 import { Header } from '../../components/Header';
 import './landing.css';
 
 export const Landing = () => {
-  const [ recipes, setRecipes ] = useState();
+  const { loading, data } = useQuery(GET_RECIPES);
 
-  useEffect(() => {
-    setRecipes([
-      {
-        description: "Descripción...",
-        imageUrl: "https://res.cloudinary.com/dnihaisdg/image/upload/v1655778144/RecipesApp/Recipes/default-recipe_pfodwr.jpg",
-        name: "Receta uno",
-        servings: 6,
-        timeCooking: "00:25",
-        timePreparation: "00:10",
-        id: "6369d3fac6a753cca098aa87"
-      },
-      {
-        description: "Las enchiladas rojas se pueden cocinar con una variedad de chiles y especias diferentes en cada región de México. Estas enchiladas se pueden encontrar en presentaciones diversas: con las tortillas enrolladas; dobladas por la mitad; o dobladas en cuatro como un triángulo; y van rellenas de queso fresco o carne deshebrada de pollo o de cerdo.",
-        imageUrl: "https://res.cloudinary.com/dnihaisdg/image/upload/v1655778144/RecipesApp/Recipes/default-recipe_pfodwr.jpg",
-        name: "Enchiladas Rojas",
-        servings: 6,
-        timeCooking: "00:25",
-        timePreparation: "00:12",
-        id: "635daff15fbe2914570db175"
-      }
-    ]);
-  }, []);
+  console.log(data)
 
   return (
     <main className="h-screen flex flex-col">
@@ -56,12 +36,15 @@ export const Landing = () => {
         </div>
 
         <div className="recipes-row mt-6 ml-4 md:ml-16 lg:ml-32">
+          { loading && <span className="loader"></span> }
+
+
           {
-            recipes !== undefined ? <> {
-              recipes.map(recipe => (
+            data !== undefined ? <> {
+              data.recipes.map(recipe => (
                 <div
                   key={ recipe.id }
-                  className="recipe-card flex flex-col my-2 w-10/12 md:w-6/12 lg:w-3/12 hover:-translate-y-3 transition duration-300"
+                  className="recipe-card flex flex-col my-2 w-10/12 md:w-6/12 lg:w-3/12 hover:-translate-y-3 transition duration-500"
                 >
                   <div
                     className="w-full h-36 rounded-t-md background-image relative"
@@ -81,18 +64,18 @@ export const Landing = () => {
                   <div className="p-4">
                     <div className="flex justify-between font-semibold mb-2">
                       <span className="text-xs leading-none">
-                       Time Cooking: { recipe.timeCooking }
+                        Time Cooking: { recipe.timeCooking }
                       </span>
 
                       <span className="text-xs leading-none">
-                       Time Preparation: { recipe.timePreparation }
+                        Time Preparation: { recipe.timePreparation }
                       </span>
                     </div>
 
                     <div>
                       <span className="text-black font-normal text-xs leading-none">
                         {
-                          recipe.description.length >= 94 ? recipe.description.slice(0, 94) + '...' : recipe.description
+                          recipe.description.length >= 94 ? recipe.description.slice(0, 124) + '...' : recipe.description
                         }
                       </span>
                     </div>

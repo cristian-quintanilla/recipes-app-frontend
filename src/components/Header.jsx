@@ -52,18 +52,21 @@ export const Header = () => {
                       >
                         Profile
                       </NavLink>
+
                       <NavLink
                         className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
                         to="/most-liked"
                       >
                         Most Liked Recipes
                       </NavLink>
+
                       <NavLink
                         className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
                         to="/create-recipe"
                       >
                         Create Recipe
                       </NavLink>
+
                       <NavLink
                         className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
                         to="/my-recipes"

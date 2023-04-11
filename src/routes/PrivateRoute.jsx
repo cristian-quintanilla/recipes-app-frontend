@@ -13,8 +13,6 @@ const PrivateRoute = ({ children }) => {
 
   return (
     <>
-    {/* <Sidebar /> */}
-
       <div className='relative md:ml-64'>
         { children }
       </div>
