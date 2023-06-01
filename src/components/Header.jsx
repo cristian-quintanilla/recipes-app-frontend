@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 export const Header = () => {
   // const { user, startLogout } = useAuthStore();
-  const [ user, ] = useState({ uid: '', name: 'Cristian', email: 'cristiancbtis130@gmail.com' });
+  const [ user, ] = useState(null);
   const [ menuOpen, setMenuOpen ] = useState(false);
 
   return (
@@ -17,14 +17,14 @@ export const Header = () => {
         user === null ? (
           <div className="flex items-center gap-2">
             <NavLink
-              className="border-2 border-dark-purple transition-all ease-linear duration-200 py-1 px-6 hover:-translate-y-1 rounded-md text-dark-purple uppercase font-bold"
+              className="border-2 border-dark-purple transition-all ease-linear duration-200 py-1 px-6 rounded-md text-dark-purple uppercase font-bold"
               to="/login"
             >
               Login
             </NavLink>
 
             <NavLink
-              className="bg-dark-purple transition-all ease-linear duration-200 py-1 px-6 hover:-translate-y-1 rounded-md text-white uppercase font-bold"
+              className="bg-dark-purple border-2 border-dark-purple transition-all ease-linear duration-200 py-1 px-6 rounded-md text-white uppercase font-bold"
               to="/register"
             >
               Register
