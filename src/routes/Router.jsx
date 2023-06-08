@@ -18,13 +18,13 @@ const Router = () => {
       <Route path='/' element={ <Landing />  } />
       <Route path='/login' element={ <Login /> } />
       <Route path='/register' element={ <Register /> } />
+      <Route path='/recipe/:id' element={ <Recipe /> } />
 
       {/* Private Routes */}
       <Route path='/home' element={ <PrivateRoute children={ <SearchRecipes /> } /> } />
       <Route path='/create' element={ <PrivateRoute children={ <CreateRecipe /> } /> } />
-      <Route path='/recipe/:id' element={ <PrivateRoute children={ <Recipe /> } /> } />
       {/* TODO: */}
-      {/* <Route path='/me' element={ <PrivateRoute children={ <SearchRecipes /> } /> } /> */}
+      {/* <Route path='/me' element={ <PrivateRoute children={ <Profile /> } /> } /> */}
 
 			{/* No Match */}
 			<Route path='*' element={ <NotFound /> } />

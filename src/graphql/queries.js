@@ -13,3 +13,48 @@ export const GET_RECIPES = gql`
     }
   }
 `;
+
+export const GET_RECIPE = gql`
+  query Recipe ($recipeId: ID!) {
+    recipe (recipeId: $recipeId) {
+      description
+      id
+      imageUrl
+      name
+      servings
+      timeCooking
+      timePreparation
+      category {
+        name
+      }
+      comments {
+        comment
+        date
+        user {
+          email
+          imageUrl
+          name
+        }
+      }
+      ingredients {
+        name
+      }
+      likes {
+        date
+        user {
+          _id
+          name
+        }
+      }
+      steps {
+        step
+        description
+      }
+      user {
+        email
+        imageUrl
+        name
+      }
+    }
+  }
+`;
