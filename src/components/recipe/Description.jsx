@@ -5,7 +5,7 @@ export const Description = ({ recipe }) => {
   return (
     <div className="w-11/12 lg:w-5/12 mx-auto mt-4 lg:mt-8 flex flex-col gap-6">
       <div className="text-zinc-400 font-medium">
-        Commented by { 2 } People
+        Commented by { recipe.commentsCount } { recipe.commentsCount === 1 ? 'Person' : 'People' }
       </div>
 
       <div className="bg-indigo-100 rounded-md px-4 lg:px-8 py-3 lg:py-6 text-gray-600 flex flex-col gap-6">

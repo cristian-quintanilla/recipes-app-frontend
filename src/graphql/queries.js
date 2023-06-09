@@ -24,6 +24,9 @@ export const GET_RECIPE = gql`
       servings
       timeCooking
       timePreparation
+      commentsCount
+      likesCount
+      userLiked
       category {
         name
       }

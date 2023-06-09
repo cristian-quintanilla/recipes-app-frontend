@@ -6,56 +6,27 @@ import { GET_RECIPE } from '../../graphql/queries';
 
 import { Description, Information } from '../../components/recipe';
 
-const data = {
-  "recipe": {
-    "description": "Descripción...",
-    imageUrl: "https://res.cloudinary.com/dnihaisdg/image/upload/v1655778144/RecipesApp/Recipes/default-recipe_pfodwr.jpg",
-    name: "Receta uno",
-    serving: 6,
-    timeCooking: "00:25",
-    timePreparation: "00:10",
-    category: {
-      name: "Comida rápida"
-    },
-    ingredients: [
-      { name: "4 chiles guajillo abiertos, limpios y sin semillas." },
-      { name: "4 chiles anchos abiertos, limpios y sin semillas." },
-    ],
-    "steps": [
-      {
-        "step": 1,
-        "description": "Vamos a empezar con la salsa: Tuesta ligeramente los chiles en un comal caliente, presionándolos con la ayuda de una espátula, pero asegurándote de no quemarlos. (Este paso toma sólo unos segundos en cada lado)."
-      }
-    ],
-    user: {
-      email: "cristiancbtis130@gmail.com",
-      imageUrl: "https://res.cloudinary.com/dnihaisdg/image/upload/v1655694955/RecipesApp/Users/user-profile_n1xpld.png",
-      name: "Cristian Quintanilla"
-    }
-  }
-}
-
 export const Recipe = () => {
-  // const { id } = useParams();
-  // const { loading, data } = useQuery(GET_RECIPE, {
-  //   variables: { recipeId: id },
-  // });
+  const { id } = useParams();
+  const { loading, data } = useQuery(GET_RECIPE, {
+    variables: { recipeId: id },
+  });
 
-  // if (data) {
-  //   console.log(data)
-  // }
+  if (data) {
+    console.log(data)
+  }
 
   return (
     <main className="h-screen flex flex-col">
       <Header></Header>
 
-      {/* {
+      {
         loading && <section
           className="mt-10 mx-auto px-4 md:px-12 lg:px-24 flex flex-col md:flex-row gap-4 lg:gap-1 w-full"
         >
           <span className="loader"></span>
         </section>
-      } */}
+      }
 
       {
         data !== undefined && <section className="mt-16">
@@ -67,7 +38,7 @@ export const Recipe = () => {
           >
             <div className="ml-4 lg:ml-8 mb-8 lg:mb-4 flex items-center gap-4">
               <button className="bg-white rounded-full p-4 flex flex-col items-center justify-center">
-                {/* TODO: Already liked */}
+                {/* TODO: Show if theres is an user logged */}
                 <span
                   className="fa-regular fa-heart text-pink-500"
                   style={{ 'fontSize': '1.5rem' }}
@@ -80,7 +51,7 @@ export const Recipe = () => {
               </button>
 
               <div className="text-white text-lg font-medium">
-                { 1 } Likes
+                { data.recipe.likesCount } Likes
               </div>
             </div>
           </div>
