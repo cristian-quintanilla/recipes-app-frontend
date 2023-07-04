@@ -43,7 +43,7 @@ export const Landing = () => {
             to="/home"
           >
             See more...
-            <i class="fa-solid fa-arrow-right ml-2"></i>
+            <i className="fa-solid fa-arrow-right ml-2"></i>
           </NavLink>
         </div>
 
@@ -51,7 +51,7 @@ export const Landing = () => {
           { loading && <span className="loader"></span> }
 
           { data !== undefined ? <> {
-              data.recipes.map(recipe => (
+              data.recipes.recipes.map(recipe => (
               <div
                 key={ recipe.id }
                 className="recipe-card flex flex-col my-2 w-10/12 md:w-6/12 lg:w-3/12 hover:-translate-y-3 transition duration-500 cursor-pointer"
