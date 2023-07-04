@@ -37,16 +37,14 @@ export const Recipe = () => {
             }}
           >
             <div className="ml-4 lg:ml-8 mb-8 lg:mb-4 flex items-center gap-4">
-              <button className="bg-white rounded-full p-4 flex flex-col items-center justify-center">
+              <button className="bg-white rounded-full h-12 w-12 flex flex-col items-center justify-center">
                 {/* TODO: Show if theres is an user logged */}
                 <span
-                  className="fa-regular fa-heart text-pink-500"
-                  style={{ 'fontSize': '1.5rem' }}
+                  className="fa-regular fa-heart text-pink-500 text-2xl"
                 ></span>
 
                 {/* <span
-                  className="fa-solid fa-heart text-pink-500"
-                  style={{ 'fontSize': '1.5rem' }}
+                  className="fa-solid fa-heart text-pink-500 text-2xl"
                 ></span> */}
               </button>
 

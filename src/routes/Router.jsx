@@ -19,9 +19,9 @@ const Router = () => {
       <Route path='/login' element={ <Login /> } />
       <Route path='/register' element={ <Register /> } />
       <Route path='/recipe/:id' element={ <Recipe /> } />
+      <Route path='/home' element={ <SearchRecipes /> } />
 
       {/* Private Routes */}
-      <Route path='/home' element={ <PrivateRoute children={ <SearchRecipes /> } /> } />
       <Route path='/create' element={ <PrivateRoute children={ <CreateRecipe /> } /> } />
       {/* TODO: */}
       {/* <Route path='/me' element={ <PrivateRoute children={ <Profile /> } /> } /> */}

@@ -8,7 +8,7 @@ export const Header = () => {
   const [ menuOpen, setMenuOpen ] = useState(false);
 
   return (
-    <header className="py-4 px-2 lg:px-8 shadow-md bg-white flex items-center justify-between fixed w-full">
+    <header className="py-4 px-2 lg:px-8 shadow-md bg-white flex items-center justify-between fixed w-full z-50">
       <NavLink className="font-semibold text-xl" to="/">
         RecipesApp
       </NavLink>

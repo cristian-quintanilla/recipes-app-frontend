@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { GET_RECIPES } from '../../graphql/queries';
 import { Header } from '../../components/Header';
@@ -35,8 +35,16 @@ export const Landing = () => {
       </section>
 
       <section className="py-12">
-        <div className="px-4 md:px-16 lg:px-32">
+        <div className="px-4 md:px-16 lg:px-32 flex items-center gap-6">
           <h2 className="text-xl lg:text-2xl font-bold">Some recipes our users created</h2>
+
+          <NavLink
+            className="text-dark-purple text-sm"
+            to="/home"
+          >
+            See more...
+            <i class="fa-solid fa-arrow-right ml-2"></i>
+          </NavLink>
         </div>
 
         <div className="recipes-row mt-6 ml-4 md:ml-16 lg:ml-32">
