@@ -12,10 +12,6 @@ export const Recipe = () => {
     variables: { recipeId: id },
   });
 
-  if (data) {
-    console.log(data)
-  }
-
   return (
     <main className="h-screen flex flex-col">
       <Header></Header>
