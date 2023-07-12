@@ -48,21 +48,22 @@ export const Header = () => {
                     <div className="py-3 px-4 flex flex-col gap-3">
                       <NavLink
                         className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
-                        to="/profile"
+                        to="/me"
                       >
                         Profile
                       </NavLink>
 
                       <NavLink
                         className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
-                        to="/most-liked"
+                        to="/home"
                       >
-                        Most Liked Recipes
+                        Search Recipes
                       </NavLink>
 
+                      {/* User */}
                       <NavLink
                         className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
-                        to="/create-recipe"
+                        to="/create"
                       >
                         Create Recipe
                       </NavLink>
