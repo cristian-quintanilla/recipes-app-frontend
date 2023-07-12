@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import PrivateRoute from '../routes/PrivateRoute';
+import { Profile } from '../pages/user/Profile';
 import { CreateRecipe, Landing, Login, NotFound, Recipe, Register, SearchRecipes } from '../pages';
 
 const Router = () => {
@@ -16,7 +17,8 @@ const Router = () => {
       {/* Private Routes */}
       <Route path="/create" element={ <PrivateRoute children={ <CreateRecipe /> } /> } />
       {/* TODO: */}
-      {/* <Route path='/me' element={ <PrivateRoute children={ <Profile /> } /> } /> */}
+      <Route path='/me' element={ <PrivateRoute children={ <Profile /> } /> } />
+      {/* <Route path='/recipes' element={ <PrivateRoute children={ <MyRecipes /> } /> } /> */}
 
       {/* No Match */}
       <Route path="*" element={ <NotFound /> } />
