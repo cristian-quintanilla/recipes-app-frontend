@@ -11,3 +11,4 @@ export * from './recipes/SearchRecipes';
 
 export * from './user/MyRecipes';
 export * from './user/Profile';
+export * from './user/User';
