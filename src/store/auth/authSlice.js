@@ -1,41 +1,46 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  status: 'checking', // checking, not-authenticated, authenticated
-  age: null,
-  email: String,
-  favoriteRecipe: String,
-  _id: ID,
-  imageUrl: String,
-  name: '',
-  password: '',
-  lastRecipes: [],
+  status: 'not-authenticated',
+  user: null,
+  error: null,
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    checking: state => {
+      state.status = 'checking';
+      state.user   = null;
+      state.error  = null;
+    },
+    clearError: state => {
+      state.status = 'not-authenticated';
+      state.error  = null;
+    },
     login: (state, { payload }) => {
       state.status = 'authenticated';
-      state.uid = payload.uid;
-      state.email = payload.email;
-      state.displayName = payload.displayName;
-      state.photoURL = payload.photoURL;
-      state.error = null;
+      state.user   = payload;
+      state.error  = null;
     },
-    logout: (state, { payload }) => {
+    logout: state => {
       state.status = 'not-authenticated';
-      state.uid = null;
-      state.email = null;
-      state.displayName = null;
-      state.photoURL = null;
-      state.error = payload;
+      state.user   = null;
+      state.error  = null;
     },
-    checkingCredentials: (state) => {
-      state.status = 'checking';
-    }
+    setError: (state, { payload }) => {
+      state.status = 'not-authenticated';
+      state.user   = null;
+      state.error  = payload;
+    },
   }
 });
 
-export const { login, logout, checkingCredentials } = authSlice.actions;
+export const {
+  clearError,
+  checking,
+  login,
+  logout,
+  setError,
+} = authSlice.actions;

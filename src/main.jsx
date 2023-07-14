@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import RecipesApp from './RecipesApp';
+import { store } from './store/store';
+
 import './main.css';
 import './index.css';
 
@@ -14,11 +17,13 @@ const client = new ApolloClient({
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <ApolloProvider client={client}>
-		<React.StrictMode>
-			<BrowserRouter>
-				<RecipesApp />
-			</BrowserRouter>
-		</React.StrictMode>
-	</ApolloProvider>,
+	<React.StrictMode>
+	  <ApolloProvider client={ client }>
+			<Provider store={ store }>
+				<BrowserRouter>
+					<RecipesApp />
+				</BrowserRouter>
+			</Provider>
+		</ApolloProvider>
+	</React.StrictMode>
 );

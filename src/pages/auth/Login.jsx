@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -14,7 +15,7 @@ export const Login = () => {
 			password: ''
 		},
 		validationSchema: Yup.object({
-			email: 		Yup.string().required('Email is required.').email('Invalid email.'),
+			email: Yup.string().required('Email is required.').email('Invalid email.'),
 			password: Yup.string().required('Password is required.').min(6, 'Password should have at least 6 letters.'),
 		}),
 		onSubmit: values => {
@@ -54,9 +55,7 @@ export const Login = () => {
         <div className="flex-1">
           <span className="hidden md:block font-medium text-3xl mb-8">Sign in</span>
 
-          <form
-            onSubmit={ formik.handleSubmit }
-          >
+          <form onSubmit={ formik.handleSubmit }>
             <div className="mb-4">
               <input
                 className="bg-white-purple py-2 px-6 outline-none rounded-md w-full lg:w-2/3"
@@ -113,6 +112,8 @@ export const Login = () => {
           </form>
         </div>
       </section>
+
+      <Toaster />
     </main>
   );
 };

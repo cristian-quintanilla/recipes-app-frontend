@@ -1,10 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 import { Header } from '../../components/Header';
+import { useAuthStore } from '../../hooks/useAuthStore';
 
 export const Register = () => {
   const [ show, setShow ] = useState(false);
+  const { error, status, startRegister } = useAuthStore();
+
+  useEffect(() => {
+    if (error !== null) {
+      toast.error(error, { duration: 3000 });
+    }
+  }, [error]);
+
+  const formik = useFormik({
+		initialValues: {
+      name: '',
+			email: '',
+			password: ''
+		},
+		validationSchema: Yup.object({
+      name: Yup.string().required('Name is required.'),
+			email: Yup.string().required('Email is required.').email('Invalid email.'),
+			password: Yup.string().required('Password is required.').min(6, 'Password should have at least 6 letters.'),
+		}),
+		onSubmit: values => {
+      startRegister(values);
+		}
+	});
 
   return (
     <main className="h-screen flex flex-col">
@@ -37,13 +64,28 @@ export const Register = () => {
         <div className="flex-1">
           <span className="hidden md:block font-medium text-3xl mb-8">Sign up</span>
 
-          <div className="flex flex-col gap-6 lg:gap-8">
+          <form
+            className="flex flex-col gap-6 lg:gap-8"
+            onSubmit={ formik.handleSubmit }
+          >
             <div>
               <input
                 className="bg-white-purple py-2 px-6 outline-none rounded-md w-full lg:w-2/3"
                 type="text"
                 placeholder="Enter your name"
+                id="name"
+                name="name"
+                value={ formik.values.name }
+                onChange={ formik.handleChange }
+                onBlur={ formik.handleBlur }
               />
+              {
+                formik.touched.name && formik.errors.name ? (
+                  <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
+                    <p>{ formik.errors.name }</p>
+                  </div>
+                ) : null
+              }
             </div>
 
             <div>
@@ -51,7 +93,19 @@ export const Register = () => {
                 className="bg-white-purple py-2 px-6 outline-none rounded-md w-full lg:w-2/3"
                 type="email"
                 placeholder="Enter email address"
+                id="email"
+                name="email"
+                value={ formik.values.email }
+                onChange={ formik.handleChange }
+                onBlur={ formik.handleBlur }
               />
+              {
+                formik.touched.email && formik.errors.email ? (
+                  <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
+                    <p>{ formik.errors.email }</p>
+                  </div>
+                ) : null
+              }
             </div>
 
             <div>
@@ -59,24 +113,41 @@ export const Register = () => {
                 className="bg-white-purple py-2 px-6 outline-none rounded-md w-full lg:w-2/3"
                 type={ show ? "text" : "password" }
                 placeholder="Password"
+                id="password"
+                name="password"
+                value={ formik.values.password }
+                onChange={ formik.handleChange }
+                onBlur={ formik.handleBlur }
               />
 
               <span
                 className={ `-ml-8 z-10 fa fa-fw cursor-pointer ${ show ? 'fa-eye-slash' : 'fa-eye' }` }
                 onClick={ () => setShow(!show) }
               ></span>
+
+              {
+                formik.touched.password && formik.errors.password ? (
+                  <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
+                    <p>{ formik.errors.password }</p>
+                  </div>
+                ) : null
+              }
             </div>
 
             <div>
               <button
-                className="bg-dark-purple hover:opacity-80 shadow-purple transition-all ease-in duration-200 shadow-lg py-2 px-6 focus:outline-none rounded-md w-full md:w-2/3"
+                className="bg-dark-purple hover:opacity-80 disabled:opacity-80 shadow-purple transition-all ease-in duration-200 shadow-lg py-2 px-6 focus:outline-none rounded-md w-full md:w-2/3 disabled:cursor-not-allowed"
+                type="submit"
+                disabled={ status === 'checking' ? true : false }
               >
                 <span className="text-white text-base">Register</span>
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </section>
+
+      <Toaster />
     </main>
   );
 };
