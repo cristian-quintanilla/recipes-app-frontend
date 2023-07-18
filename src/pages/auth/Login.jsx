@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { Header } from '../../components/Header';
+import { useAuthStore } from '../../hooks/useAuthStore';
 
 export const Login = () => {
   const [ show, setShow ] = useState(false);
+  const { error, status, startLogin } = useAuthStore();
+
+  useEffect(() => {
+    if (error !== null) {
+      toast.error(error, { duration: 3000 });
+    }
+  }, [error]);
 
   const formik = useFormik({
 		initialValues: {
@@ -19,8 +27,7 @@ export const Login = () => {
 			password: Yup.string().required('Password is required.').min(6, 'Password should have at least 6 letters.'),
 		}),
 		onSubmit: values => {
-      console.log(values)
-			// onRegister(values);
+      startLogin(values);
 		}
 	});
 
@@ -104,7 +111,8 @@ export const Login = () => {
             <div>
               <button
                 type="submit"
-                className="bg-dark-purple hover:opacity-80 shadow-purple transition-all ease-in duration-200 shadow-lg py-2 px-6 focus:outline-none rounded-md w-full md:w-2/3"
+                className="bg-dark-purple hover:opacity-80 disabled:opacity-80 shadow-purple transition-all ease-in duration-200 shadow-lg py-2 px-6 focus:outline-none rounded-md w-full md:w-2/3 disabled:cursor-not-allowed"
+                disabled={ status === 'checking' ? true : false }
               >
                 <span className="text-white text-base">Login</span>
               </button>

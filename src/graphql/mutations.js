@@ -16,3 +16,23 @@ export const CREATE_ACCOUNT = gql`
     }
   }
 `;
+
+export const LOGIN = gql`
+  mutation AuthLogin (
+    $email: String!
+    $password: String!
+  ) {
+    authLogin (
+      email: $email
+      password: $password
+    ) {
+      token
+      message
+        user {
+        name
+        email
+        _id
+      }
+    }
+  }
+`;
