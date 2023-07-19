@@ -64,3 +64,17 @@ export const GET_RECIPE = gql`
     }
   }
 `;
+
+export const RENEW_TOKEN = gql`
+  query {
+    renewToken {
+      token
+      message
+      user {
+        _id
+        name
+        email
+      }
+    }
+  }
+`;

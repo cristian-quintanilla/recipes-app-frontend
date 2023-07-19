@@ -1,15 +1,14 @@
-import { useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+
+import { useAuthStore } from '../hooks';
 
 const PrivateRoute = ({ children }) => {
-  // useEffect(() => {
-  // 	userAuthenticated();
-  // }, []);
+  const { user } = useAuthStore();
 
-  const authenticated = true;
+  console.log(user)
 
   //* Verify if user is authenticated
-  if (!authenticated) return <Navigate to='/' />;
+  if (user === null) return <Navigate to='/' />;
 
   return (
     <>

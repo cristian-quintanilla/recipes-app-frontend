@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-// import { useAuthStore } from '../../hooks';
+import { useAuthStore } from '../hooks';
 
 export const Header = () => {
-  // const { user, startLogout } = useAuthStore();
-  const [ user, ] = useState(null);
+  const { user, startLogout } = useAuthStore();
   const [ menuOpen, setMenuOpen ] = useState(false);
 
   return (
@@ -75,7 +74,10 @@ export const Header = () => {
                         My Recipes
                       </NavLink>
 
-                      <span className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer">
+                      <span
+                        className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
+                        onClick={ startLogout }
+                      >
                         Sign Out
                       </span>
                     </div>

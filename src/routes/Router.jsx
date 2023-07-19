@@ -1,6 +1,7 @@
-import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-import PrivateRoute from '../routes/PrivateRoute';
+import { useAuthStore } from '../hooks';
 import {
   CreateRecipe,
   Landing,
@@ -15,20 +16,39 @@ import {
 } from '../pages';
 
 const Router = () => {
+  const { status, checkToken } = useAuthStore();
+
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  if (status === 'checking') {
+    return <h3>Loading...</h3>;
+  }
+
   return (
     <Routes>
-      {/* Public Route */}
-      <Route path="/" element={ <Landing /> } />
-      <Route path="/register" element={ <Register /> } />
-      <Route path="/login" element={ <Login /> } />
-      <Route path="/recipe/:id" element={ <Recipe /> } />
-      <Route path="/home" element={ <SearchRecipes /> } />
+      {status === 'not-authenticated' ? (
+        <>
+          {/* Public Route */}
+          <Route path="/" element={ <Landing /> } />
+          <Route path="/register" element={ <Register /> } />
+          <Route path="/login" element={ <Login /> } />
+          <Route path="/recipe/:id" element={ <Recipe /> } />
+          <Route path="/home" element={ <SearchRecipes /> } />
+        </>
+      ) : (
+        <>
+          <Route path="/" element={ <Landing /> } />
+          <Route path="/home" element={ <SearchRecipes /> } />
+          <Route path="/create" element={ <CreateRecipe /> } />
+          <Route path='/me' element={ <Profile /> } />
+          <Route path='/my-recipes' element={ <MyRecipes /> } />
+          <Route path='/user/:id' element={ <User /> } />
 
-      {/* Private Routes */}
-      <Route path="/create" element={ <PrivateRoute children={ <CreateRecipe /> } /> } />
-      <Route path='/me' element={ <PrivateRoute children={ <Profile /> } /> } />
-      <Route path='/my-recipes' element={ <PrivateRoute children={ <MyRecipes /> } /> } />
-      <Route path='/user/:id' element={ <PrivateRoute children={ <User /> } /> } />
+          <Route path="/*" element={<Navigate to="/me" />} />
+        </>
+      )}
 
       {/* No Match */}
       <Route path="*" element={ <NotFound /> } />

@@ -66,45 +66,45 @@ export const SearchRecipes = () => {
         <nav className="mt-8 flex justify-center">
           <div className="inline-flex -space-x-px">
             <span
-              class="px-3.5 py-1 text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+              className="px-3.5 py-1 text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
             >
-              <i class="fa-solid fa-chevron-left"></i>
+              <i className="fa-solid fa-chevron-left"></i>
             </span>
 
             <span
-              class="cursor-pointer px-3.5 py-1 border border-gray-300 bg-gray-100 text-gray-700"
+              className="cursor-pointer px-3.5 py-1 border border-gray-300 bg-gray-100 text-gray-700"
             >
               1
             </span>
 
             <span
-              class="cursor-pointer px-3.5 py-1 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+              className="cursor-pointer px-3.5 py-1 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               2
             </span>
 
             <span
-              class="cursor-pointer px-3.5 py-1 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+              className="cursor-pointer px-3.5 py-1 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               3
             </span>
 
             <span
-              class="cursor-pointer px-3.5 py-1 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+              className="cursor-pointer px-3.5 py-1 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               4
             </span>
 
             <span
-              class="cursor-pointer px-3.5 py-1 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+              className="cursor-pointer px-3.5 py-1 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
             >
               5
             </span>
 
             <span
-              class="px-3.5 py-1 text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+              className="px-3.5 py-1 text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
             >
-              <i class="fa-solid fa-chevron-right"></i>
+              <i className="fa-solid fa-chevron-right"></i>
             </span>
           </div>
         </nav>

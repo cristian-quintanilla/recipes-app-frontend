@@ -20,7 +20,7 @@ export const Profile = () => {
                 <div
                   className="bg-white-purple hover:opacity-80 flex flex-col justify-center items-center w-32 h-32 p-4 cursor-pointer"
                 >
-                  <i class="fa-solid fa-camera text-5xl text-gray-300"></i>
+                  <i className="fa-solid fa-camera text-5xl text-gray-300"></i>
                 </div>
               </div>
 
@@ -73,8 +73,8 @@ export const Profile = () => {
                   className="bg-white-purple py-2 px-6 outline-none rounded-md w-full"
                   type={ show ? "text" : "password" }
                   placeholder="Confirm Password..."
-                  id="password"
-                  name="password"
+                  id="password2"
+                  name="password2"
                 />
 
                 <span

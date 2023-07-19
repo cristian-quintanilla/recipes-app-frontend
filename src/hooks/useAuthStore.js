@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
 import toast from 'react-hot-toast';
 
@@ -8,12 +9,15 @@ import {
   checking,
   clearError,
   login,
+  logout,
   setError,
 } from '../store/auth/authSlice';
+import { RENEW_TOKEN } from '../graphql/queries';
 
 export const useAuthStore = () => {
   const dispatch = useDispatch();
   const client = useApolloClient();
+  const navigate = useNavigate();
   const { status, user, error } = useSelector(state => state.auth);
 
   const startLogin = async ({ email, password }) => {
@@ -79,11 +83,46 @@ export const useAuthStore = () => {
     });
   }
 
+  const checkToken = async () => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return dispatch( logout() );
+    }
+
+    client.query({ query: RENEW_TOKEN }).then(({ data }) => {
+      const token = data.renewToken.token;
+      const user = data.renewToken.user;
+
+      localStorage.setItem('token', token);
+
+      dispatch(
+        login({
+          uid: user._id,
+          name: user.name,
+          email: user.email,
+        })
+      );
+    }).catch(() => {
+      startLogout();
+    });
+  }
+
+  const startLogout = () => {
+    localStorage.clear();
+
+    dispatch( logout() );
+    navigate('/');
+    // TODO: dispatch( logoutRecipes() );
+  }
+
   return {
     status,
     user,
     error,
+    checkToken,
     startLogin,
+    startLogout,
     startRegister,
   }
 }

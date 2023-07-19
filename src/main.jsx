@@ -14,6 +14,9 @@ import './index.css';
 const client = new ApolloClient({
   uri: 'https://recipes-app-backend.onrender.com/graphql',
   cache: new InMemoryCache(),
+	headers: {
+		authorization: 'Token ' + localStorage.getItem('token'),
+	}
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -37,8 +37,8 @@ export const MyRecipes = () => {
                         <p className="font-semibold text-sm">Servings: { 4 }</p>
 
                         <div className="flex items-center gap-4">
-                          <i class="text-xs fa-solid fa-pencil hover:text-gray-400 cursor-pointer"></i>
-                          <i class="text-xs fa-solid fa-trash hover:text-red-500 cursor-pointer"></i>
+                          <i className="text-xs fa-solid fa-pencil hover:text-gray-400 cursor-pointer"></i>
+                          <i className="text-xs fa-solid fa-trash hover:text-red-500 cursor-pointer"></i>
                         </div>
                       </div>
                     </div>
