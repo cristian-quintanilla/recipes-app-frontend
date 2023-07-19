@@ -65,7 +65,11 @@ export const useAuthStore = () => {
       const message = data.createAccount.message;
       toast.success(message, { duration: 3000 });
 
-      dispatch( clearError() );
+      // Login after register
+      startLogin({
+        email,
+        password
+      });
     }).catch(error => {
       dispatch( setError(error.message) );
 
