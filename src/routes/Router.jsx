@@ -43,6 +43,7 @@ const Router = () => {
           <Route path="/home" element={ <SearchRecipes /> } />
           <Route path="/create" element={ <CreateRecipe /> } />
           <Route path='/me' element={ <Profile /> } />
+          <Route path="/recipe/:id" element={ <Recipe /> } />
           <Route path='/my-recipes' element={ <MyRecipes /> } />
           <Route path='/user/:id' element={ <User /> } />
 

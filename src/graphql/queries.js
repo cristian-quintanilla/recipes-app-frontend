@@ -65,6 +65,31 @@ export const GET_RECIPE = gql`
   }
 `;
 
+export const SEARCH_RECIPES = gql`
+  query Recipes (
+    $page: Int
+    $size: Int
+    $substring: String
+  ) {
+    recipes (
+      page: $page
+      size: $size
+      substring: $substring
+    ) {
+      count
+      recipes {
+        description
+        id
+        imageUrl
+        name
+        servings
+        timeCooking
+        timePreparation
+      }
+    }
+  }
+`;
+
 export const RENEW_TOKEN = gql`
   query {
     renewToken {
