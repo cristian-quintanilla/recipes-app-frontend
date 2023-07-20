@@ -1,10 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import { Header } from '../../components/Header';
 import { GET_RECIPE } from '../../graphql/queries';
-
-import { Description, Information } from '../../components/recipe';
+import { Description, Header, Information } from '../../components';
 
 export const Recipe = () => {
   const { id } = useParams();

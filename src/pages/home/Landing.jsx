@@ -2,8 +2,7 @@ import { useQuery } from '@apollo/client';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { GET_RECIPES } from '../../graphql/queries';
-import { Header } from '../../components/Header';
-import { RecipeCard } from '../../components/recipes/RecipeCard';
+import { Header, RecipeCard } from '../../components';
 
 import './landing.css';
 

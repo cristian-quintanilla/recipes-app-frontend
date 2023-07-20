@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Header } from '../../components/Header';
+
+import { Header } from '../../components';
 
 export const Profile = () => {
   const [ show, setShow ] = useState(false);

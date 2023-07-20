@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useApolloClient } from '@apollo/client';
-
-import { Header } from '../../components/Header';
-import { Pagination } from '../../components/Pagination';
-import { SEARCH_RECIPES } from '../../graphql/queries';
-import { RecipeCard } from '../../components/recipes/RecipeCard';
 import { useNavigate } from 'react-router-dom';
+
+import { SEARCH_RECIPES } from '../../graphql/queries';
+import { Header, Pagination, RecipeCard } from '../../components';
 
 const recipesPerPage = 9;
 

@@ -4,8 +4,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+import { Header } from '../../components';
 import { useAuthStore } from '../../hooks';
-import { Header } from '../../components/Header';
 
 export const Register = () => {
   const [ show, setShow ] = useState(false);
