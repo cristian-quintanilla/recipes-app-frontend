@@ -36,16 +36,18 @@ const Router = () => {
           <Route path="/login" element={ <Login /> } />
           <Route path="/recipe/:id" element={ <Recipe /> } />
           <Route path="/home" element={ <SearchRecipes /> } />
+
+          <Route path="/*" element={<Navigate to="/login" />} />
         </>
       ) : (
         <>
           <Route path="/" element={ <Landing /> } />
           <Route path="/home" element={ <SearchRecipes /> } />
           <Route path="/create" element={ <CreateRecipe /> } />
-          <Route path='/me' element={ <Profile /> } />
+          <Route path="/me" element={ <Profile /> } />
           <Route path="/recipe/:id" element={ <Recipe /> } />
-          <Route path='/my-recipes' element={ <MyRecipes /> } />
-          <Route path='/user/:id' element={ <User /> } />
+          <Route path="/my-recipes" element={ <MyRecipes /> } />
+          <Route path="/user/:id" element={ <User /> } />
 
           <Route path="/*" element={<Navigate to="/me" />} />
         </>

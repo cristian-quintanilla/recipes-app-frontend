@@ -103,3 +103,19 @@ export const RENEW_TOKEN = gql`
     }
   }
 `;
+
+export const GET_MY_RECIPES = gql`
+  query {
+    getMe {
+      recipes {
+        description
+        id
+        imageUrl
+        name
+        servings
+        timeCooking
+        timePreparation
+      }
+    }
+  }
+`;
