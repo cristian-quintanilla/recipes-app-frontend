@@ -1,8 +1,8 @@
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 
-import { Header, RecipeCard } from '../../components';
 import { GET_MY_RECIPES } from '../../graphql/queries';
+import { Header, NoData, RecipeCard } from '../../components';
 
 export const MyRecipes = () => {
   const navigate = useNavigate();
@@ -27,20 +27,26 @@ export const MyRecipes = () => {
           </div> }
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          { !loading ? <> {
-            data?.getMe.recipes.map(recipe => (
-              <div
-                key={ recipe.id }
-                className="recipe-card flex flex-col my-2 hover:-translate-y-3 transition duration-500 cursor-pointer"
-                onClick={ () => goToDetails(recipe.id) }
-              >
-                <RecipeCard recipe={ recipe } />
-              </div>
-            ))
-          } </> : null }
+            { !loading ? <> {
+              data?.getMe.recipes.map(recipe => (
+                <div
+                  key={ recipe.id }
+                  className="recipe-card flex flex-col my-2 hover:-translate-y-3 transition duration-500 cursor-pointer"
+                  onClick={ () => goToDetails(recipe.id) }
+                >
+                  <RecipeCard recipe={ recipe } />
+                </div>
+              ))
+            } </> : null }
+          </div>
 
-          {/* TODO: No se encontraron recetas */}
-        </div>
+          {
+            data?.getMe.recipes.length === 0 && (
+              <div className="w-11/12 md:w-6/12 xl:w-4/12 mx-auto flex justify-center">
+                <NoData />
+              </div>
+            )
+          }
         </div>
       </section>
     </main>

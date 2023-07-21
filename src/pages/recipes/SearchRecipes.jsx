@@ -3,7 +3,7 @@ import { useApolloClient } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 
 import { SEARCH_RECIPES } from '../../graphql/queries';
-import { Header, Pagination, RecipeCard } from '../../components';
+import { Header, NoData, Pagination, RecipeCard } from '../../components';
 
 const recipesPerPage = 9;
 
@@ -90,9 +90,15 @@ export const SearchRecipes = () => {
               </div>
             ))
           } </> : null }
-
-          {/* TODO: No se encontraron recetas */}
         </div>
+
+        {
+          (data?.recipes.recipes.length === 0 && !loading) && (
+            <div className="w-11/12 md:w-6/12 xl:w-4/12 mx-auto flex justify-center">
+              <NoData />
+            </div>
+          )
+        }
 
         {
           data?.recipes.recipes.length >= 1 && (
