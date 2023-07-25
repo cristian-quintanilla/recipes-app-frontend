@@ -119,3 +119,17 @@ export const GET_MY_RECIPES = gql`
     }
   }
 `;
+
+export const GET_USER = gql`
+  query GetUser ($_id: ID!) {
+    getUser (_id: $_id) {
+      _id
+      name
+      age
+      email
+      imageUrl
+      favoriteRecipe
+      totalRecipes
+    }
+  }
+`;
