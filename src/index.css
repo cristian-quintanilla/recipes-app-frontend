@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+  .primary-btn {
+    @apply bg-dark-purple shadow-purple transition-all ease-in duration-200 shadow-lg py-2 px-6 focus:outline-none rounded-md w-full md:w-2/3;
+  }
+
+  .primary-btn:hover {
+    @apply opacity-80;
+  }
+
+  .primary-btn:disabled {
+    @apply opacity-80 cursor-not-allowed;
+  }
+}

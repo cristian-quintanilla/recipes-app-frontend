@@ -136,7 +136,7 @@ export const Register = () => {
 
             <div>
               <button
-                className="bg-dark-purple hover:opacity-80 disabled:opacity-80 shadow-purple transition-all ease-in duration-200 shadow-lg py-2 px-6 focus:outline-none rounded-md w-full md:w-2/3 disabled:cursor-not-allowed"
+                className="primary-btn"
                 type="submit"
                 disabled={ status === 'checking' ? true : false }
               >

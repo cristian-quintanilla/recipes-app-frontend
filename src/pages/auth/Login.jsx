@@ -111,7 +111,7 @@ export const Login = () => {
             <div>
               <button
                 type="submit"
-                className="bg-dark-purple hover:opacity-80 disabled:opacity-80 shadow-purple transition-all ease-in duration-200 shadow-lg py-2 px-6 focus:outline-none rounded-md w-full md:w-2/3 disabled:cursor-not-allowed"
+                className="primary-btn"
                 disabled={ status === 'checking' ? true : false }
               >
                 <span className="text-white text-base">Login</span>

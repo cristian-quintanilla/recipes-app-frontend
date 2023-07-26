@@ -36,3 +36,15 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const UPDATE_PASSWORD = gql`
+  mutation UpdateAccount (
+    $password: String
+  ) {
+    updatePassword (
+      password: $password
+    ) {
+      password
+    }
+  }
+`;
