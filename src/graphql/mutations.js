@@ -48,3 +48,11 @@ export const UPDATE_PASSWORD = gql`
     }
   }
 `;
+
+export const DELETE_ACCOUNT = gql`
+  mutation {
+    deleteAccount {
+      message
+    }
+  }
+`;

@@ -77,7 +77,7 @@ export const Login = () => {
             </div>
             {
               formik.touched.email && formik.errors.email ? (
-                <div className="mt-2 mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-2">
+                <div className="mt-2 mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
                   <p>{ formik.errors.email }</p>
                 </div>
               ) : null
@@ -102,7 +102,7 @@ export const Login = () => {
             </div>
             {
               formik.touched.password && formik.errors.password ? (
-                <div className="mt-2 mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-2">
+                <div className="mt-2 mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
                   <p>{ formik.errors.password }</p>
                 </div>
               ) : null

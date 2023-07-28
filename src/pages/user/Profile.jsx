@@ -9,7 +9,7 @@ import { useUserStore } from '../../hooks';
 export const Profile = () => {
   const [ show, setShow ] = useState(false);
   const [ showConfirm, setShowConfirm ] = useState(false);
-  const { error, status, startUpdatePassword } = useUserStore();
+  const { error, status, startDeleteAccount, startUpdatePassword } = useUserStore();
 
   useEffect(() => {
     if (error !== null) {
@@ -36,15 +36,30 @@ export const Profile = () => {
 		}
 	});
 
+  const deleteAccount = () => {
+    startDeleteAccount();
+  }
+
   return (
     <main className="h-screen flex flex-col">
       <Header></Header>
 
       <section className="mt-28 pb-10">
         <div className="flex flex-col gap-8 lg:gap-10 w-11/12 lg:w-10/12 xl:w-8/12 mx-auto">
-          <h2 className="font-semibold text-2xl xl:text-3xl text-center">
-            Cristian Quintanilla
-          </h2>
+          <div className="flex flex-col items-center gap-2">
+            <h2 className="font-semibold text-2xl xl:text-3xl text-center">
+              Cristian Quintanilla
+            </h2>
+
+            <button
+              type="button"
+              className="red-btn"
+              // disabled={ status === 'updating' ? true : false }
+              onClick={ () => deleteAccount() }
+            >
+              <span className="text-white text-sm">Delete Account</span>
+            </button>
+          </div>
 
           <div className="flex flex-col md:flex-row gap-10 lg:gap-12">
             <div className="flex-1 flex flex-col gap-6">
@@ -107,7 +122,7 @@ export const Profile = () => {
 
                 {
                   formikPassword.touched.password && formikPassword.errors.password ? (
-                    <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
+                    <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
                       <p>{ formikPassword.errors.password }</p>
                     </div>
                   ) : null
@@ -133,7 +148,7 @@ export const Profile = () => {
 
                 {
                   formikPassword.touched.confirmPassword && formikPassword.errors.confirmPassword ? (
-                    <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
+                    <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
                       <p>{ formikPassword.errors.confirmPassword }</p>
                     </div>
                   ) : null

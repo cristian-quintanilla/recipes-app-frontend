@@ -10,6 +10,11 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    deleting: state => {
+      state.status = 'deleting';
+      state.user   = null;
+      state.error  = null;
+    },
     updating: state => {
       state.status = 'updating';
       state.user   = null;
@@ -28,6 +33,7 @@ export const userSlice = createSlice({
 });
 
 export const {
+  deleting,
   updating,
   clearError,
   setError,
