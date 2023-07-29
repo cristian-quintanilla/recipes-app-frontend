@@ -133,3 +133,14 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_ME = gql`
+  query {
+    getMe {
+      age
+      name
+      favoriteRecipe
+      imageUrl
+    }
+  }
+`;
