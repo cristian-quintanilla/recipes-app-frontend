@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 import { useAuthStore } from './useAuthStore';
 import { fileUpload } from '../helpers/fileUpload';
-import { DELETE_ACCOUNT, UPDATE_PASSWORD } from '../graphql/mutations';
+import { DELETE_ACCOUNT, UPDATE_ACCOUNT, UPDATE_PASSWORD } from '../graphql/mutations';
 
 import {
   deleting,
@@ -69,13 +69,37 @@ export const useUserStore = () => {
     dispatch( setImageUrl(imageUrl) );
   }
 
+  const startUpdateAccount = async ({ age, favoriteRecipe, name, imageUrl }) => {
+    dispatch( updating() );
+
+    client.mutate({
+      mutation: UPDATE_ACCOUNT,
+      variables: {
+        age,
+        favoriteRecipe,
+        name,
+        imageUrl,
+      }
+    }).then(() => {
+      toast.success('Account updated successfully', { duration: 3000 });
+      dispatch( clearError() );
+    }).catch(error => {
+      dispatch( setError(error.message) );
+
+      setTimeout(() => {
+        dispatch( clearError() );
+      }, 3000);
+    });
+  }
+
   return {
+    error,
+    imageUrl,
+    isSaving,
     status,
     user,
-    error,
-    isSaving,
-    imageUrl,
     startDeleteAccount,
+    startUpdateAccount,
     startUpdatePassword,
     startUploadingFile,
   }

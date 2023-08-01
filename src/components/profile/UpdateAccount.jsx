@@ -6,7 +6,7 @@ import { useUserStore } from '../../hooks';
 
 export const UpdateAccount = ({ data }) => {
   const imageUrlRef = useRef();
-  const { isSaving, imageUrl, startUploadingFile } = useUserStore();
+  const { isSaving, imageUrl, status, startUploadingFile, startUpdateAccount } = useUserStore();
 
   const formikUser = useFormik({
     enableReinitialize: true,
@@ -20,7 +20,7 @@ export const UpdateAccount = ({ data }) => {
       age: Yup.number().required('Age is required.'),
 		}),
 		onSubmit: values => {
-      console.log(values);
+      startUpdateAccount({ ...values, imageUrl });
 		}
 	});
 
@@ -135,6 +135,7 @@ export const UpdateAccount = ({ data }) => {
         <button
           type="submit"
           className="primary-btn"
+          disabled={ status === 'updating' ? true : false }
         >
           <span className="text-white text-base">Update Account</span>
         </button>

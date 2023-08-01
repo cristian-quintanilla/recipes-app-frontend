@@ -56,3 +56,24 @@ export const DELETE_ACCOUNT = gql`
     }
   }
 `;
+
+export const UPDATE_ACCOUNT = gql`
+  mutation UpdateAccount (
+    $name: String!
+    $imageUrl: String
+    $age: NonNegativeInt
+    $favoriteRecipe: String
+  ) {
+    updateAccount (
+      name: $name
+      imageUrl: $imageUrl
+      age: $age
+      favoriteRecipe: $favoriteRecipe
+    ) {
+      age
+      name
+      favoriteRecipe
+      imageUrl
+    }
+  }
+`;
