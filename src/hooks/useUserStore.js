@@ -3,14 +3,23 @@ import { useApolloClient } from '@apollo/client';
 import toast from 'react-hot-toast';
 
 import { useAuthStore } from './useAuthStore';
+import { fileUpload } from '../helpers/fileUpload';
 import { DELETE_ACCOUNT, UPDATE_PASSWORD } from '../graphql/mutations';
-import { deleting, updating, clearError, setError } from '../store/user/userSlice';
+
+import {
+  deleting,
+  updating,
+  clearError,
+  setError,
+  setSaving,
+  setImageUrl,
+} from '../store/user/userSlice';
 
 export const useUserStore = () => {
   const { startLogout } = useAuthStore();
   const dispatch = useDispatch();
   const client = useApolloClient();
-  const { status, user, error } = useSelector(state => state.user);
+  const { status, user, error, isSaving, imageUrl } = useSelector(state => state.user);
 
   const startUpdatePassword = async (password) => {
     dispatch( updating() );
@@ -53,11 +62,21 @@ export const useUserStore = () => {
     });
   }
 
+  const startUploadingFile = async (file) => {
+    dispatch( setSaving() );
+
+    const imageUrl = await fileUpload(file);
+    dispatch( setImageUrl(imageUrl) );
+  }
+
   return {
     status,
     user,
     error,
+    isSaving,
+    imageUrl,
     startDeleteAccount,
     startUpdatePassword,
+    startUploadingFile,
   }
 }

@@ -4,6 +4,8 @@ const initialState = {
   status: null,
   user: null,
   error: null,
+  isSaving: false,
+  imageUrl: null,
 };
 
 export const userSlice = createSlice({
@@ -29,6 +31,12 @@ export const userSlice = createSlice({
       state.user   = null;
       state.error  = payload;
     },
+    setSaving: state => {
+      state.isSaving = true;
+    },
+    setImageUrl: (state, { payload }) => {
+      state.imageUrl = payload;
+    }
   }
 });
 
@@ -37,4 +45,6 @@ export const {
   updating,
   clearError,
   setError,
+  setSaving,
+  setImageUrl,
 } = userSlice.actions;

@@ -1,7 +1,13 @@
+import { useRef } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+import { useUserStore } from '../../hooks';
+
 export const UpdateAccount = ({ data }) => {
+  const imageUrlRef = useRef();
+  const { isSaving, imageUrl, startUploadingFile } = useUserStore();
+
   const formikUser = useFormik({
     enableReinitialize: true,
 		initialValues: {
@@ -18,6 +24,14 @@ export const UpdateAccount = ({ data }) => {
 		}
 	});
 
+  const handleFilesChange = ({ target }) => {
+    if (target.files.length === 0) {
+      return;
+    }
+
+    startUploadingFile(target.files[0]);
+  }
+
   return (
     <form
       className="flex-1 flex flex-col gap-6"
@@ -25,15 +39,36 @@ export const UpdateAccount = ({ data }) => {
     >
       <div className="w-40 mx-auto">
         <div
-          className="bg-white-purple hover:opacity-80 flex flex-col justify-center items-center w-32 h-32 p-4 cursor-pointer rounded-full"
+          className={
+            `bg-white-purple hover:opacity-80 flex flex-col justify-center items-center w-32 h-32 cursor-pointer rounded-full
+            ${ isSaving ? 'cursor-not-allowed' : '' }`
+          }
+          onClick={ () => imageUrlRef.current.click() }
         >
           {
-            data?.getMe.imageUrl ? <img
+            (data?.getMe.imageUrl && !imageUrl) && <img
               src={ data?.getMe.imageUrl }
-              alt="User Name"
-            /> : (<i className="fa-solid fa-camera text-4xl"></i>)
+              alt={ data?.getMe.name }
+              className="rounded-full"
+            />
+          }
+
+          {
+            imageUrl !== null && <img
+            src={ imageUrl }
+            alt={ data?.getMe.name }
+            className="rounded-full"
+          />
           }
         </div>
+
+        <input
+          type="file"
+          name="imageUrl"
+          ref={ imageUrlRef }
+          style={{ display: 'none' }}
+          onChange={ handleFilesChange }
+        />
       </div>
 
       <div>

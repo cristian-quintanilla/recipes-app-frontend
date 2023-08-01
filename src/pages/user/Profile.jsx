@@ -7,7 +7,6 @@ import { GET_ME } from '../../graphql/queries';
 import { Header, UpdateAccount, UpdatePassword } from '../../components';
 
 export const Profile = () => {
-
   const { data } = useQuery(GET_ME);
   const { error, status, startDeleteAccount } = useUserStore();
 

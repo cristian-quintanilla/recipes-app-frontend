@@ -38,7 +38,7 @@ export const LOGIN = gql`
 `;
 
 export const UPDATE_PASSWORD = gql`
-  mutation UpdateAccount (
+  mutation UpdatePassword (
     $password: String
   ) {
     updatePassword (
