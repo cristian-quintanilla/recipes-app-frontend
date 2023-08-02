@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 import { useRecipeStore } from '../../hooks/useRecipeStore';
 import { Description, Header, Information } from '../../components';
@@ -7,7 +8,7 @@ import { Description, Header, Information } from '../../components';
 export const Recipe = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { isLoading, recipe, getRecipe } = useRecipeStore();
+  const { isLoading, isLiking, recipe, getRecipe, likeRecipe } = useRecipeStore();
 
   useEffect(() => {
     getRecipe(id);
@@ -15,6 +16,10 @@ export const Recipe = () => {
 
   const goToHome = () => {
     navigate('/home');
+  }
+
+  const like = recipeId => {
+    likeRecipe(recipeId);
   }
 
   return (
@@ -42,8 +47,12 @@ export const Recipe = () => {
                 {
                   !recipe.userLiked ? (
                     <span
-                    className="fa-regular fa-heart text-pink-500 text-2xl"
-                  ></span>
+                      className={
+                        `fa-regular fa-heart text-pink-500 text-2xl
+                        ${ isLiking ? 'cursor-not-allowed opacity-50' : '' }`
+                      }
+                      onClick={ () => like(id) }
+                    ></span>
                   ) : (
                     <span
                       className="fa-solid fa-heart text-pink-500 text-2xl"
@@ -101,6 +110,8 @@ export const Recipe = () => {
           </div>
         </section>
       }
+
+      <Toaster />
     </main>
   );
 }
