@@ -13,6 +13,7 @@ import {
   setError,
 } from '../store/auth/authSlice';
 import { RENEW_TOKEN } from '../graphql/queries';
+import { setRecipe } from '../store/recipe/recipeSlice';
 
 export const useAuthStore = () => {
   const dispatch = useDispatch();
@@ -112,8 +113,9 @@ export const useAuthStore = () => {
     localStorage.clear();
 
     dispatch( logout() );
+    dispatch( setRecipe(null) );
+
     navigate('/');
-    // TODO: dispatch( logoutRecipes() );
   }
 
   return {

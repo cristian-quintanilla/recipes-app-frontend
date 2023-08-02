@@ -9,13 +9,13 @@ export const Description = ({ recipe }) => {
       </div>
 
       <div className="bg-indigo-100 rounded-md px-4 lg:px-8 py-3 lg:py-6 text-gray-600 flex flex-col gap-6">
-        <div className="italic text-lg">
+        <div className="italic text-sm">
           { recipe.description }
         </div>
 
         <div className="flex items-center gap-2">
           <img
-            className="h-8 w-auto"
+            className="h-8 w-auto rounded-full"
             src={ recipe.user.imageUrl ? recipe.user.imageUrl : '/assets/images/camera.png' }
             alt={ recipe.user.name }
           />
