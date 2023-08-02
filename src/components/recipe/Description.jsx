@@ -2,6 +2,10 @@ import { Ingredients } from './Ingredients';
 import { Steps } from './Steps';
 
 export const Description = ({ recipe }) => {
+  const goToUser = userId => {
+    window.open(`${ window.location.origin }/user/${ userId }`, '_blank');
+  }
+
   return (
     <div className="w-11/12 lg:w-5/12 mx-auto mt-4 lg:mt-8 flex flex-col gap-6">
       <div className="text-zinc-400 font-medium">
@@ -21,7 +25,13 @@ export const Description = ({ recipe }) => {
           />
 
           <div className="flex flex-col">
-            <span className="text-sm font-bold">{ recipe.user.name }</span>
+            <span
+              className="text-sm font-bold cursor-pointer"
+              onClick={ () => goToUser(recipe.user._id) }
+            >
+              { recipe.user.name }
+            </span>
+
             <span className="text-xs">{ recipe.user.email }</span>
           </div>
         </div>

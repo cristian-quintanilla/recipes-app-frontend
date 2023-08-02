@@ -57,6 +57,7 @@ export const GET_RECIPE = gql`
         description
       }
       user {
+        _id
         email
         imageUrl
         name
