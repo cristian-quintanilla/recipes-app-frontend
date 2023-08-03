@@ -85,3 +85,23 @@ export const LIKE_RECIPE = gql`
     }
   }
 `;
+
+export const COMMENT_RECIPE = gql`
+  mutation CommentRecipe (
+    $recipeId: ID!
+    $comment: String!
+  ) {
+    commentRecipe (
+      recipeId: $recipeId
+      comment: $comment
+    ) {
+      comment
+      date
+      user {
+        email
+        imageUrl
+        name
+      }
+    }
+  }
+`;

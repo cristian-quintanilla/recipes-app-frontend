@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import { useRecipeStore } from '../../hooks/useRecipeStore';
-import { Description, Header, Information } from '../../components';
+import { Comments, Description, Header, Information } from '../../components';
 
 export const Recipe = () => {
   const { id } = useParams();
@@ -71,6 +71,10 @@ export const Recipe = () => {
             <Information recipe={ recipe } />
 
             <Description recipe={ recipe } />
+          </div>
+
+          <div className="w-11/12 mx-auto mt-4 pb-8">
+            <Comments recipe={ recipe } />
           </div>
         </section>
       }
