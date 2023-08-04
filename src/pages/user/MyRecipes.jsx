@@ -9,6 +9,7 @@ export const MyRecipes = () => {
   const { loading, data } = useQuery(GET_MY_RECIPES);
 
   const goToDetails = recipeId => {
+    // TODO: Navigate to edit
     navigate('/recipe/' + recipeId);
   }
 

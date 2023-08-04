@@ -8,7 +8,7 @@ export const UpdateAccount = ({ data }) => {
   const imageUrlRef = useRef();
   const { isSaving, imageUrl, status, startUploadingFile, startUpdateAccount } = useUserStore();
 
-  const formikUser = useFormik({
+  const formik = useFormik({
     enableReinitialize: true,
 		initialValues: {
 			name: data?.getMe?.name ? data.getMe.name : '',
@@ -35,9 +35,9 @@ export const UpdateAccount = ({ data }) => {
   return (
     <form
       className="flex-1 flex flex-col gap-6"
-      onSubmit={ formikUser.handleSubmit }
+      onSubmit={ formik.handleSubmit }
     >
-      <div className="w-40 mx-auto">
+      <div className="mx-auto">
         <div
           className={
             `bg-white-purple hover:opacity-80 flex flex-col justify-center items-center w-32 h-32 cursor-pointer rounded-full
@@ -55,10 +55,10 @@ export const UpdateAccount = ({ data }) => {
 
           {
             imageUrl !== null && <img
-            src={ imageUrl }
-            alt={ data?.getMe.name }
-            className="rounded-full"
-          />
+              src={ imageUrl }
+              alt={ data?.getMe.name }
+              className="rounded-full"
+            />
           }
         </div>
 
@@ -77,15 +77,15 @@ export const UpdateAccount = ({ data }) => {
           type="text"
           placeholder="Name..."
           name="name"
-          value={ formikUser.values.name }
-          onChange={ formikUser.handleChange }
-          onBlur={ formikUser.handleBlur }
+          value={ formik.values.name }
+          onChange={ formik.handleChange }
+          onBlur={ formik.handleBlur }
         />
 
         {
-          formikUser.touched.name && formikUser.errors.name ? (
+          formik.touched.name && formik.errors.name ? (
             <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-              <p>{ formikUser.errors.name }</p>
+              <p>{ formik.errors.name }</p>
             </div>
           ) : null
         }
@@ -97,15 +97,15 @@ export const UpdateAccount = ({ data }) => {
           type="number"
           placeholder="Age..."
           name="age"
-          value={ formikUser.values.age }
-          onChange={ formikUser.handleChange }
-          onBlur={ formikUser.handleBlur }
+          value={ formik.values.age }
+          onChange={ formik.handleChange }
+          onBlur={ formik.handleBlur }
         />
 
         {
-          formikUser.touched.age && formikUser.errors.age ? (
+          formik.touched.age && formik.errors.age ? (
             <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-              <p>{ formikUser.errors.age }</p>
+              <p>{ formik.errors.age }</p>
             </div>
           ) : null
         }
@@ -117,15 +117,15 @@ export const UpdateAccount = ({ data }) => {
           type="text"
           placeholder="Favorite recipe..."
           name="favoriteRecipe"
-          value={ formikUser.values.favoriteRecipe }
-          onChange={ formikUser.handleChange }
-          onBlur={ formikUser.handleBlur }
+          value={ formik.values.favoriteRecipe }
+          onChange={ formik.handleChange }
+          onBlur={ formik.handleBlur }
         />
 
         {
-          formikUser.touched.favoriteRecipe && formikUser.errors.favoriteRecipe ? (
+          formik.touched.favoriteRecipe && formik.errors.favoriteRecipe ? (
             <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-              <p>{ formikUser.errors.favoriteRecipe }</p>
+              <p>{ formik.errors.favoriteRecipe }</p>
             </div>
           ) : null
         }

@@ -3,13 +3,22 @@ import { useApolloClient } from '@apollo/client';
 import toast from 'react-hot-toast';
 
 import { GET_RECIPE } from '../graphql/queries';
+import { fileUpload } from '../helpers/fileUpload';
 import { COMMENT_RECIPE, LIKE_RECIPE } from '../graphql/mutations';
-import { setLoading, setLiking, setRecipe, setCommenting } from '../store/recipe/recipeSlice';
+
+import {
+  setLoading,
+  setLiking,
+  setRecipe,
+  setCommenting,
+  setIsUploadingImage,
+  setImageUrl,
+} from '../store/recipe/recipeSlice';
 
 export const useRecipeStore = () => {
   const dispatch = useDispatch();
   const client = useApolloClient();
-  const { isLoading, isLiking, isCommenting, recipe } = useSelector(state => state.recipe);
+  const { isLoading, isLiking, isCommenting, isUploadingImage, imageUrl, recipe } = useSelector(state => state.recipe);
 
   const getRecipe = recipeId => {
     dispatch( setLoading(true) );
@@ -76,13 +85,25 @@ export const useRecipeStore = () => {
     });
   }
 
+  const startUploadingFile = async (file) => {
+    dispatch( setIsUploadingImage(true) );
+
+    const imageUrl = await fileUpload(file);
+    dispatch( setImageUrl(imageUrl) );
+
+    dispatch( setIsUploadingImage(false) );
+  }
+
   return {
-    recipe,
+    commentRecipe,
+    getRecipe,
+    imageUrl,
+    isCommenting,
     isLiking,
     isLoading,
-    isCommenting,
-    getRecipe,
+    isUploadingImage,
     likeRecipe,
-    commentRecipe,
+    recipe,
+    startUploadingFile,
   }
 }
