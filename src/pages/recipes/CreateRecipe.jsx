@@ -1,5 +1,6 @@
 import { useRef } from 'react';
-import { useFormik } from 'formik';
+import { getIn, useFormik } from 'formik';
+import toast, { Toaster } from 'react-hot-toast';
 import * as Yup from 'yup';
 
 import { Header } from '../../components';
@@ -23,6 +24,8 @@ export const CreateRecipe = () => {
       timePreparationMinutes: '',
       timeCookingHour: '',
       timeCookingMinutes: '',
+      ingredients: [],
+      steps: [],
 		},
 		validationSchema: Yup.object({
       name: Yup.string().required('Name is required.'),
@@ -33,8 +36,30 @@ export const CreateRecipe = () => {
       timePreparationMinutes: Yup.string().required('Minutes are required.'),
       timeCookingHour: Yup.string().required('Hours are required.'),
       timeCookingMinutes: Yup.string().required('Minutes are required.'),
+      ingredients: Yup.array().of(
+        Yup.object().shape({
+          name: Yup.string().required('Name is required'),
+        }),
+      ),
+      steps: Yup.array().of(
+        Yup.object().shape({
+          name: Yup.string().required('Name is required'),
+        }),
+      ),
 		}),
 		onSubmit: values => {
+      const { ingredients, steps } = values;
+
+      if (ingredients.length === 0) {
+        toast.error('At least one ingredient is required', { duration: 3000 });
+        return;
+      }
+
+      if (steps.length === 0) {
+        toast.error('At least one step is required', { duration: 3000 });
+        return;
+      }
+
       console.log(values);
 		},
 	});
@@ -45,6 +70,46 @@ export const CreateRecipe = () => {
     }
 
     startUploadingFile(target.files[0]);
+  }
+
+  const onAddIngredient = () => {
+    let ingredients = [ ...formik.values.ingredients ];
+    ingredients.push({ name: '' });
+
+    formik.setValues({
+      ...formik.values,
+      ingredients: ingredients,
+    });
+  }
+
+  const onDeleteIngredient = index => {
+    let ingredients = [ ...formik.values.ingredients ];
+    ingredients.splice(index, 1);
+
+    formik.setValues({
+      ...formik.values,
+      ingredients: ingredients,
+    });
+  }
+
+  const onAddStep = () => {
+    let steps = [ ...formik.values.steps ];
+    steps.push({ name: '' });
+
+    formik.setValues({
+      ...formik.values,
+      steps: steps,
+    });
+  }
+
+  const onDeleteStep = index => {
+    let step = [ ...formik.values.step ];
+    step.splice(index, 1);
+
+    formik.setValues({
+      ...formik.values,
+      step: step,
+    });
   }
 
   return (
@@ -301,19 +366,47 @@ export const CreateRecipe = () => {
                   Ingredients
                 </span>
 
-                <i className="fa-solid fa-plus text-zinc-400 cursor-pointer"></i>
+                <i
+                  className="fa-solid fa-plus text-zinc-400 cursor-pointer"
+                  onClick={ onAddIngredient }
+                ></i>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-wrap gap-4 lg:gap-8 items-center">
-                  <i className="fa-solid fa-trash text-zinc-400 cursor-pointer"></i>
+              <div className="flex flex-col gap-4">
+                {formik.values.ingredients.map((ingredient, index) => {
+                  const name = `ingredients[${index}].name`;
+                  const touchedName = getIn(formik.touched, name);
+                  const errorName = getIn(formik.errors, name);
 
-                  <input
-                    className="bg-white-purple py-2 px-6 outline-none rounded-md flex-1"
-                    type="text"
-                    placeholder="Name..."
-                  />
-                </div>
+                  return (
+                    <div
+                      key={ index }
+                      className="flex flex-wrap gap-4 lg:gap-8 items-center"
+                    >
+                      <i
+                        className="fa-solid fa-trash text-zinc-400 cursor-pointer"
+                        onClick={ () => onDeleteIngredient(index) }
+                      ></i>
+
+                      <input
+                        className="bg-white-purple py-2 px-6 outline-none rounded-md flex-1"
+                        type="text"
+                        placeholder="Name..."
+                        name={ name }
+                        value={ ingredient.name }
+                        onChange={ formik.handleChange }
+                      />
+
+                      {
+                        touchedName && errorName && (
+                          <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+                            <p>{ formik.errors.ingredients[index].name }</p>
+                          </div>
+                        )
+                      }
+                    </div>
+                  )
+                })}
               </div>
             </div>
 
@@ -323,19 +416,47 @@ export const CreateRecipe = () => {
                   Steps
                 </span>
 
-                <i className="fa-solid fa-plus text-zinc-400 cursor-pointer"></i>
+                <i
+                  className="fa-solid fa-plus text-zinc-400 cursor-pointer"
+                  onClick={ onAddStep }
+                ></i>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-wrap gap-4 lg:gap-8 items-center">
-                  <i className="fa-solid fa-trash text-zinc-400 cursor-pointer"></i>
+              <div className="flex flex-col gap-4">
+                {formik.values.steps.map((step, index) => {
+                  const name = `steps[${index}].name`;
+                  const touchedName = getIn(formik.touched, name);
+                  const errorName = getIn(formik.errors, name);
 
-                  <input
-                    className="bg-white-purple py-2 px-6 outline-none rounded-md flex-1"
-                    type="text"
-                    placeholder="Name..."
-                  />
-                </div>
+                  return (
+                    <div
+                      key={ index }
+                      className="flex flex-wrap gap-4 lg:gap-8 items-center"
+                    >
+                      <i
+                        className="fa-solid fa-trash text-zinc-400 cursor-pointer"
+                        onClick={ () => onDeleteStep(index) }
+                      ></i>
+
+                      <input
+                        className="bg-white-purple py-2 px-6 outline-none rounded-md flex-1"
+                        type="text"
+                        placeholder="Name..."
+                        name={ name }
+                        value={ step.name }
+                        onChange={ formik.handleChange }
+                      />
+
+                      {
+                        touchedName && errorName && (
+                          <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+                            <p>{ formik.errors.steps[index].name }</p>
+                          </div>
+                        )
+                      }
+                    </div>
+                  )
+                })}
               </div>
             </div>
 
@@ -343,7 +464,7 @@ export const CreateRecipe = () => {
               <button
                 type="submit"
                 className="primary-btn max-w-xs"
-                // disabled={ status === 'updating' ? true : false }
+                // disabled={ status === 'creating' ? true : false }
               >
                 <span className="text-white text-base">Create Recipe</span>
               </button>
@@ -351,6 +472,8 @@ export const CreateRecipe = () => {
           </form>
         </div>
       </section>
+
+      <Toaster />
     </main>
   );
 };
