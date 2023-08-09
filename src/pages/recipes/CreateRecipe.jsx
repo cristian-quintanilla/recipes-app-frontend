@@ -1,9 +1,11 @@
 import { useRef } from 'react';
 import { getIn, useFormik } from 'formik';
+import { useQuery } from '@apollo/client';
 import toast, { Toaster } from 'react-hot-toast';
 import * as Yup from 'yup';
 
 import { Header } from '../../components';
+import { GET_CATEGORIES } from '../../graphql/queries';
 import { useRecipeStore } from '../../hooks/useRecipeStore';
 
 const hours = ['00', '01', '02', '03', '04', '05'];
@@ -11,6 +13,7 @@ const minutes = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50
 
 export const CreateRecipe = () => {
   const imageUrlRef = useRef();
+  const { data } = useQuery(GET_CATEGORIES);
   const { imageUrl, isUploadingImage, startUploadingFile } = useRecipeStore();
 
   const formik = useFormik({
@@ -207,9 +210,11 @@ export const CreateRecipe = () => {
                 >
                   <option value="" disabled>Select a category</option>
 
-                  {/* TODO: Categories query */}
-                  <option value="1">Categoría 1</option>
-                  <option value="2">Categoría 2</option>
+                  {
+                    data.categories.map(category => (
+                      <option key={ category.id } value={ category.id }>{ category.name }</option>
+                    ))
+                  }
                 </select>
 
                 {
