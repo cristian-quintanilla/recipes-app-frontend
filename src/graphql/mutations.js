@@ -105,3 +105,31 @@ export const COMMENT_RECIPE = gql`
     }
   }
 `;
+
+export const CREATE_RECIPE = gql`
+  mutation CreateRecipe (
+    $name: String!
+    $description: String!
+    $timePreparation: String!
+    $timeCooking: String!
+    $servings: Int!
+    $ingredients: [IngredientInput]!
+    $steps: [StepInput]!
+    $imageUrl: String
+    $category: ID!
+  ) {
+    createRecipe (
+      name: $name
+      description: $description
+      timePreparation: $timePreparation
+      timeCooking: $timeCooking
+      servings: $servings
+      ingredients: $ingredients
+      steps: $steps
+      imageUrl: $imageUrl
+      category: $category
+    ) {
+      name
+    }
+  }
+`;

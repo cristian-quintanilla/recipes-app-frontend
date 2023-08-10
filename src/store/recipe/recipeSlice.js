@@ -7,6 +7,7 @@ const initialState = {
   isUploadingImage: false,
   recipe: null,
   imageUrl: null,
+  isCreating: false,
 };
 
 export const recipeSlice = createSlice({
@@ -30,12 +31,16 @@ export const recipeSlice = createSlice({
     },
     setRecipe: (state, { payload }) => {
       state.recipe = payload;
-    }
+    },
+    setCreating: (state, { payload }) => {
+      state.isCreating = payload;
+    },
   }
 });
 
 export const {
   setCommenting,
+  setCreating,
   setImageUrl,
   setIsUploadingImage,
   setLiking,

@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useApolloClient } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import { GET_RECIPE } from '../graphql/queries';
 import { fileUpload } from '../helpers/fileUpload';
-import { COMMENT_RECIPE, LIKE_RECIPE } from '../graphql/mutations';
+import { COMMENT_RECIPE, CREATE_RECIPE, LIKE_RECIPE } from '../graphql/mutations';
 
 import {
   setLoading,
@@ -13,12 +14,23 @@ import {
   setCommenting,
   setIsUploadingImage,
   setImageUrl,
+  setCreating,
 } from '../store/recipe/recipeSlice';
 
 export const useRecipeStore = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const client = useApolloClient();
-  const { isLoading, isLiking, isCommenting, isUploadingImage, imageUrl, recipe } = useSelector(state => state.recipe);
+
+  const {
+    isLoading,
+    isLiking,
+    isCreating,
+    isCommenting,
+    isUploadingImage,
+    imageUrl,
+    recipe,
+  } = useSelector(state => state.recipe);
 
   const getRecipe = recipeId => {
     dispatch( setLoading(true) );
@@ -94,16 +106,36 @@ export const useRecipeStore = () => {
     dispatch( setIsUploadingImage(false) );
   }
 
+  const startCreateRecipe = data => {
+    dispatch( setCreating(true) );
+
+    client.mutate({
+      mutation: CREATE_RECIPE,
+      variables: {
+        ...data,
+      }
+    }).then(() => {
+      dispatch( setCreating(false) );
+      toast.success('Recipe created!', { duration: 3000 });
+      navigate('/my-recipes');
+    }).catch(error => {
+      dispatch( setCreating(false) );
+      toast.error(error.message, { duration: 3000 });
+    });
+  }
+
   return {
     commentRecipe,
     getRecipe,
     imageUrl,
     isCommenting,
+    isCreating,
     isLiking,
     isLoading,
     isUploadingImage,
     likeRecipe,
     recipe,
+    startCreateRecipe,
     startUploadingFile,
   }
 }

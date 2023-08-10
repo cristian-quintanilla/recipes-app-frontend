@@ -14,7 +14,14 @@ const minutes = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50
 export const CreateRecipe = () => {
   const imageUrlRef = useRef();
   const { data } = useQuery(GET_CATEGORIES);
-  const { imageUrl, isUploadingImage, startUploadingFile } = useRecipeStore();
+
+  const {
+    imageUrl,
+    isCreating,
+    isUploadingImage,
+    startUploadingFile,
+    startCreateRecipe,
+  } = useRecipeStore();
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -63,7 +70,25 @@ export const CreateRecipe = () => {
         return;
       }
 
-      console.log(values);
+      const data = {
+        name: values.name,
+        category: values.category,
+        servings: values.servings,
+        description: values.description,
+        ingredients: values.ingredients,
+        timeCooking: values.timeCookingHour + ':' + values.timeCookingMinutes,
+        steps: values.steps.map((step, index) => ({
+          description: step.name,
+          step: index + 1,
+        })),
+        timePreparation: values.timePreparationHour + ':' + values.timePreparationMinutes,
+      };
+
+      if (imageUrl) {
+        data.imageUrl = imageUrl;
+      }
+
+      startCreateRecipe(data);
 		},
 	});
 
@@ -211,7 +236,7 @@ export const CreateRecipe = () => {
                   <option value="" disabled>Select a category</option>
 
                   {
-                    data.categories.map(category => (
+                    data?.categories.map(category => (
                       <option key={ category.id } value={ category.id }>{ category.name }</option>
                     ))
                   }
@@ -469,7 +494,7 @@ export const CreateRecipe = () => {
               <button
                 type="submit"
                 className="primary-btn max-w-xs"
-                // disabled={ status === 'creating' ? true : false }
+                disabled={ isCreating }
               >
                 <span className="text-white text-base">Create Recipe</span>
               </button>
