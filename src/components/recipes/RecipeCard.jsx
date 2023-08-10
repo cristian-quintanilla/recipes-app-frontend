@@ -1,4 +1,12 @@
-export const RecipeCard = ({ recipe }) => {
+import { useNavigate } from 'react-router-dom';
+
+export const RecipeCard = ({ recipe, isEditing = false }) => {
+  const navigate = useNavigate();
+
+  const goToEdit = recipeId => {
+    navigate('/recipe/' + recipeId + '/edit');
+  }
+
   return (
     <>
       <div
@@ -12,6 +20,13 @@ export const RecipeCard = ({ recipe }) => {
 
           <div className="text-white flex justify-between">
             <p className="font-semibold text-sm">Servings: { recipe.servings }</p>
+
+            { isEditing && (
+              <i
+                className="cursor-pointer text-sm fa-solid fa-pen-to-square"
+                onClick={ () => goToEdit(recipe.id) }
+              ></i>
+            )}
           </div>
         </div>
       </div>

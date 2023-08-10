@@ -1,18 +1,11 @@
 import { useQuery } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 import { GET_MY_RECIPES } from '../../graphql/queries';
 import { Header, NoData, RecipeCard } from '../../components';
 
 export const MyRecipes = () => {
-  const navigate = useNavigate();
   const { loading, data } = useQuery(GET_MY_RECIPES);
-
-  const goToDetails = recipeId => {
-    // TODO: Navigate to edit
-    navigate('/recipe/' + recipeId);
-  }
 
   return (
     <main className="h-screen flex flex-col">
@@ -33,10 +26,9 @@ export const MyRecipes = () => {
               data?.getMe.recipes.map(recipe => (
                 <div
                   key={ recipe.id }
-                  className="recipe-card flex flex-col my-2 hover:-translate-y-3 transition duration-500 cursor-pointer"
-                  onClick={ () => goToDetails(recipe.id) }
+                  className="recipe-card flex flex-col my-2 hover:-translate-y-3 transition duration-500"
                 >
-                  <RecipeCard recipe={ recipe } />
+                  <RecipeCard recipe={ recipe } isEditing={ true } />
                 </div>
               ))
             } </> : null }

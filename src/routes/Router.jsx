@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from '../hooks';
 import {
   CreateRecipe,
+  EditRecipe,
   Landing,
   Login,
   MyRecipes,
@@ -45,8 +46,8 @@ const Router = () => {
           <Route path="/home" element={ <SearchRecipes /> } />
           <Route path="/create" element={ <CreateRecipe /> } />
           <Route path="/me" element={ <Profile /> } />
-          {/* TODO: Edit path */}
           <Route path="/recipe/:id" element={ <Recipe /> } />
+          <Route path="/recipe/:id/edit" element={ <EditRecipe /> } />
           <Route path="/my-recipes" element={ <MyRecipes /> } />
           <Route path="/user/:id" element={ <User /> } />
 
