@@ -35,10 +35,20 @@ export const recipeSlice = createSlice({
     setCreating: (state, { payload }) => {
       state.isCreating = payload;
     },
+    resetState: state => {
+      state.isLoading = false;
+      state.isLiking = false;
+      state.isCommenting = false;
+      state.isUploadingImage = false;
+      state.recipe = null;
+      state.imageUrl = null;
+      state.isCreating = false;
+    }
   }
 });
 
 export const {
+  resetState,
   setCommenting,
   setCreating,
   setImageUrl,

@@ -8,6 +8,7 @@ import { fileUpload } from '../helpers/fileUpload';
 import { COMMENT_RECIPE, CREATE_RECIPE, LIKE_RECIPE } from '../graphql/mutations';
 
 import {
+  resetState,
   setLoading,
   setLiking,
   setRecipe,
@@ -118,6 +119,7 @@ export const useRecipeStore = () => {
       dispatch( setCreating(false) );
       toast.success('Recipe created!', { duration: 3000 });
       navigate('/my-recipes');
+      dispatch( resetState() );
     }).catch(error => {
       dispatch( setCreating(false) );
       toast.error(error.message, { duration: 3000 });
