@@ -7,7 +7,7 @@ const initialState = {
   isUploadingImage: false,
   recipe: null,
   imageUrl: null,
-  isCreating: false,
+  isSaving: false,
 };
 
 export const recipeSlice = createSlice({
@@ -32,8 +32,8 @@ export const recipeSlice = createSlice({
     setRecipe: (state, { payload }) => {
       state.recipe = payload;
     },
-    setCreating: (state, { payload }) => {
-      state.isCreating = payload;
+    setSaving: (state, { payload }) => {
+      state.isSaving = payload;
     },
     resetState: state => {
       state.isLoading = false;
@@ -42,7 +42,7 @@ export const recipeSlice = createSlice({
       state.isUploadingImage = false;
       state.recipe = null;
       state.imageUrl = null;
-      state.isCreating = false;
+      state.isSaving = false;
     }
   }
 });
@@ -50,7 +50,7 @@ export const recipeSlice = createSlice({
 export const {
   resetState,
   setCommenting,
-  setCreating,
+  setSaving,
   setImageUrl,
   setIsUploadingImage,
   setLiking,

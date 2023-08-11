@@ -31,6 +31,7 @@ export const GET_RECIPE = gql`
       likesCount
       userLiked
       category {
+        id
         name
       }
       comments {

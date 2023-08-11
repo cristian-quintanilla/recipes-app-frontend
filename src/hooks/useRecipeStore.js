@@ -5,7 +5,13 @@ import toast from 'react-hot-toast';
 
 import { GET_RECIPE } from '../graphql/queries';
 import { fileUpload } from '../helpers/fileUpload';
-import { COMMENT_RECIPE, CREATE_RECIPE, LIKE_RECIPE } from '../graphql/mutations';
+
+import {
+  COMMENT_RECIPE,
+  CREATE_RECIPE,
+  LIKE_RECIPE,
+  UPDATE_RECIPE
+} from '../graphql/mutations';
 
 import {
   resetState,
@@ -15,7 +21,7 @@ import {
   setCommenting,
   setIsUploadingImage,
   setImageUrl,
-  setCreating,
+  setSaving,
 } from '../store/recipe/recipeSlice';
 
 export const useRecipeStore = () => {
@@ -26,7 +32,7 @@ export const useRecipeStore = () => {
   const {
     isLoading,
     isLiking,
-    isCreating,
+    isSaving,
     isCommenting,
     isUploadingImage,
     imageUrl,
@@ -44,6 +50,7 @@ export const useRecipeStore = () => {
     }).then(({ data }) => {
       dispatch( setLoading(false) );
       dispatch( setRecipe(data.recipe) );
+      dispatch( setImageUrl(data.recipe.imageUrl) );
     }).catch(() => {
       dispatch( setLoading(false) );
     });
@@ -108,7 +115,7 @@ export const useRecipeStore = () => {
   }
 
   const startCreateRecipe = data => {
-    dispatch( setCreating(true) );
+    dispatch( setSaving(true) );
 
     client.mutate({
       mutation: CREATE_RECIPE,
@@ -116,12 +123,31 @@ export const useRecipeStore = () => {
         ...data,
       }
     }).then(() => {
-      dispatch( setCreating(false) );
+      dispatch( setSaving(false) );
       toast.success('Recipe created!', { duration: 3000 });
       navigate('/my-recipes');
       dispatch( resetState() );
     }).catch(error => {
-      dispatch( setCreating(false) );
+      dispatch( setSaving(false) );
+      toast.error(error.message, { duration: 3000 });
+    });
+  }
+
+  const startUpdateRecipe = data => {
+    dispatch( setSaving(true) );
+
+    client.mutate({
+      mutation: UPDATE_RECIPE,
+      variables: {
+        ...data,
+      }
+    }).then(() => {
+      dispatch( setSaving(false) );
+      toast.success('Recipe updated!', { duration: 3000 });
+      navigate('/my-recipes');
+      dispatch( resetState() );
+    }).catch(error => {
+      dispatch( setSaving(false) );
       toast.error(error.message, { duration: 3000 });
     });
   }
@@ -131,7 +157,7 @@ export const useRecipeStore = () => {
     getRecipe,
     imageUrl,
     isCommenting,
-    isCreating,
+    isSaving,
     isLiking,
     isLoading,
     isUploadingImage,
@@ -139,5 +165,6 @@ export const useRecipeStore = () => {
     recipe,
     startCreateRecipe,
     startUploadingFile,
+    startUpdateRecipe,
   }
 }

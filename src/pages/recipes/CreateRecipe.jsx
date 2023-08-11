@@ -17,7 +17,7 @@ export const CreateRecipe = () => {
 
   const {
     imageUrl,
-    isCreating,
+    isSaving,
     isUploadingImage,
     startUploadingFile,
     startCreateRecipe,
@@ -494,7 +494,7 @@ export const CreateRecipe = () => {
               <button
                 type="submit"
                 className="primary-btn max-w-xs"
-                disabled={ isCreating }
+                disabled={ isSaving }
               >
                 <span className="text-white text-base">Create Recipe</span>
               </button>
