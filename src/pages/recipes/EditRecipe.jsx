@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
 
 import { useRecipeStore } from '../../hooks/useRecipeStore';
 import { EditRecipeForm, Header, NotFoundRecipe } from '../../components';
@@ -40,8 +39,6 @@ export const EditRecipe = () => {
       {
         !isLoading && !recipe && (<NotFoundRecipe />)
       }
-
-      <Toaster />
     </main>
   );
 }

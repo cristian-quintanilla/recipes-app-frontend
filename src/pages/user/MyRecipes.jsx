@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client';
-import { Toaster } from 'react-hot-toast';
 
 import { GET_MY_RECIPES } from '../../graphql/queries';
 import { Header, NoData, RecipeCard } from '../../components';
@@ -43,8 +42,6 @@ export const MyRecipes = () => {
           }
         </div>
       </section>
-
-      <Toaster />
     </main>
   );
 };

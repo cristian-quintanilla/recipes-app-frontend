@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 import { getIn, useFormik } from 'formik';
 import { useQuery } from '@apollo/client';
-import toast, { Toaster } from 'react-hot-toast';
 import * as Yup from 'yup';
 
 import { Header } from '../../components';
+import { Toast } from '../../helpers/toast';
 import { GET_CATEGORIES } from '../../graphql/queries';
 import { useRecipeStore } from '../../hooks/useRecipeStore';
 
@@ -61,12 +61,12 @@ export const CreateRecipe = () => {
       const { ingredients, steps } = values;
 
       if (ingredients.length === 0) {
-        toast.error('At least one ingredient is required', { duration: 3000 });
+        Toast.fire({ icon: 'error', title: 'At least one ingredient is required', });
         return;
       }
 
       if (steps.length === 0) {
-        toast.error('At least one step is required', { duration: 3000 });
+        Toast.fire({ icon: 'error', title: 'At least one step is required', });
         return;
       }
 
@@ -502,8 +502,6 @@ export const CreateRecipe = () => {
           </form>
         </div>
       </section>
-
-      <Toaster />
     </main>
   );
 };

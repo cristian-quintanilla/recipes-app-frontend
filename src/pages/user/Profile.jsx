@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import toast, { Toaster } from 'react-hot-toast';
 
 import { useUserStore } from '../../hooks';
 import { GET_ME } from '../../graphql/queries';
@@ -12,7 +11,7 @@ export const Profile = () => {
 
   useEffect(() => {
     if (error !== null) {
-      toast.error(error, { duration: 3000 });
+      Toast.fire({ icon: 'error', title: error, });
     }
   }, [error]);
 
@@ -48,8 +47,6 @@ export const Profile = () => {
           </div>
         </div>
       </section>
-
-      <Toaster />
     </main>
   );
 };

@@ -1,9 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
-import toast from 'react-hot-toast';
-
-import { CREATE_ACCOUNT, LOGIN } from '../graphql/mutations';
 
 import {
   checking,
@@ -13,8 +10,10 @@ import {
   setError,
 } from '../store/auth/authSlice';
 
+import { Toast } from '../helpers/toast';
 import { RENEW_TOKEN } from '../graphql/queries';
 import { resetState } from '../store/recipe/recipeSlice';
+import { CREATE_ACCOUNT, LOGIN } from '../graphql/mutations';
 
 export const useAuthStore = () => {
   const dispatch = useDispatch();
@@ -32,10 +31,12 @@ export const useAuthStore = () => {
         password
       }
     }).then(({ data }) => {
-      const token = data.authLogin.token;
       const user = data.authLogin.user;
+      const token = data.authLogin.token;
+      const message = data.authLogin.message;
 
       localStorage.setItem('token', token);
+      Toast.fire({ icon: 'success', title: message, });
 
       dispatch( clearError() );
 
@@ -69,7 +70,7 @@ export const useAuthStore = () => {
       }
     }).then(({ data }) => {
       const message = data.createAccount.message;
-      toast.success(message, { duration: 3000 });
+      Toast.fire({ icon: 'success', title: message, });
 
       // Login after register
       startLogin({

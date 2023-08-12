@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useApolloClient } from '@apollo/client';
-import toast from 'react-hot-toast';
 
+import { Toast } from '../helpers/toast';
 import { useAuthStore } from './useAuthStore';
 import { fileUpload } from '../helpers/fileUpload';
 import { DELETE_ACCOUNT, UPDATE_ACCOUNT, UPDATE_PASSWORD } from '../graphql/mutations';
@@ -30,7 +30,7 @@ export const useUserStore = () => {
         password,
       }
     }).then(() => {
-      toast.success('Password updated successfully', { duration: 3000 });
+      Toast.fire({ icon: 'success', title: 'Password updated successfully!', });
       dispatch( clearError() );
     }).catch(error => {
       dispatch( setError(error.message) );
@@ -49,7 +49,7 @@ export const useUserStore = () => {
     })
     .then(({ data }) => {
       const message = data.deleteAccount.message;
-      toast.success(message, { duration: 3000 });
+      Toast.fire({ icon: 'success', title: message, });
 
       dispatch( clearError() );
       startLogout();
@@ -81,7 +81,7 @@ export const useUserStore = () => {
         imageUrl,
       }
     }).then(() => {
-      toast.success('Account updated successfully', { duration: 3000 });
+      Toast.fire({ icon: 'success', title: 'Account updated successfully', });
       dispatch( clearError() );
     }).catch(error => {
       dispatch( setError(error.message) );

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useApolloClient } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 
+import { Toast } from '../helpers/toast';
 import { GET_RECIPE } from '../graphql/queries';
 import { fileUpload } from '../helpers/fileUpload';
 
@@ -73,10 +73,10 @@ export const useRecipeStore = () => {
       dispatch( setLiking(false) );
       dispatch( setRecipe(newRecipe) );
 
-      toast.success('Recipe liked!', { duration: 3000 });
+      Toast.fire({ icon: 'success', title: 'Recipe liked!', });
     }).catch(error => {
       dispatch( setLiking(false) );
-      toast.error(error.message, { duration: 3000 });
+      Toast.fire({ icon: 'error', title: error.message, });
     });
   }
 
@@ -98,10 +98,10 @@ export const useRecipeStore = () => {
       dispatch( setCommenting(false) );
       dispatch( setRecipe(newRecipe) );
 
-      toast.success('Comment added!', { duration: 3000 });
+      Toast.fire({ icon: 'success', title: 'Comment added!', });
     }).catch(error => {
       dispatch( setCommenting(false) );
-      toast.error(error.message, { duration: 3000 });
+      Toast.fire({ icon: 'error', title: error.message, });
     });
   }
 
@@ -124,12 +124,12 @@ export const useRecipeStore = () => {
       }
     }).then(() => {
       dispatch( setSaving(false) );
-      toast.success('Recipe created!', { duration: 3000 });
+      Toast.fire({ icon: 'success', title: 'Recipe created!', });
       navigate('/my-recipes');
       dispatch( resetState() );
     }).catch(error => {
       dispatch( setSaving(false) );
-      toast.error(error.message, { duration: 3000 });
+      Toast.fire({ icon: 'error', title: error.message, });
     });
   }
 
@@ -143,12 +143,12 @@ export const useRecipeStore = () => {
       }
     }).then(() => {
       dispatch( setSaving(false) );
-      toast.success('Recipe updated!', { duration: 3000 });
+      Toast.fire({ icon: 'success', title: 'Recipe updated!', });
       navigate('/my-recipes');
       dispatch( resetState() );
     }).catch(error => {
       dispatch( setSaving(false) );
-      toast.error(error.message, { duration: 3000 });
+      Toast.fire({ icon: 'error', title: error.message, });
     });
   }
 

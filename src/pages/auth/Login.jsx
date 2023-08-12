@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { Header } from '../../components';
 import { useAuthStore } from '../../hooks';
+import { Toast } from '../../helpers/toast';
 
 export const Login = () => {
   const [ show, setShow ] = useState(false);
@@ -13,7 +13,7 @@ export const Login = () => {
 
   useEffect(() => {
     if (error !== null) {
-      toast.error(error, { duration: 3000 });
+      Toast.fire({ icon: 'error', title: error, });
     }
   }, [error]);
 
@@ -120,8 +120,6 @@ export const Login = () => {
           </form>
         </div>
       </section>
-
-      <Toaster />
     </main>
   );
 };
