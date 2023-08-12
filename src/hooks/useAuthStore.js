@@ -12,8 +12,9 @@ import {
   logout,
   setError,
 } from '../store/auth/authSlice';
+
 import { RENEW_TOKEN } from '../graphql/queries';
-import { setRecipe } from '../store/recipe/recipeSlice';
+import { resetState } from '../store/recipe/recipeSlice';
 
 export const useAuthStore = () => {
   const dispatch = useDispatch();
@@ -31,11 +32,9 @@ export const useAuthStore = () => {
         password
       }
     }).then(({ data }) => {
-      const message = data.authLogin.message;
       const token = data.authLogin.token;
       const user = data.authLogin.user;
 
-      toast.success(message, { duration: 3000 });
       localStorage.setItem('token', token);
 
       dispatch( clearError() );
@@ -47,6 +46,8 @@ export const useAuthStore = () => {
           email: user.email,
         })
       );
+
+      location.reload();
     }).catch(error => {
       dispatch( setError(error.message) );
 
@@ -113,7 +114,7 @@ export const useAuthStore = () => {
     localStorage.clear();
 
     dispatch( logout() );
-    dispatch( setRecipe(null) );
+    dispatch( resetState() );
 
     navigate('/');
   }
