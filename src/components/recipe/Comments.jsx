@@ -1,11 +1,13 @@
+import { useQuery } from '@apollo/client';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { format } from 'date-fns';
 
-import { useUserStore, useRecipeStore } from '../../hooks';
+import { useRecipeStore } from '../../hooks';
+import { GET_ME } from '../../graphql/queries';
 
 export const Comments = ({ recipe }) => {
-  const { user } = useUserStore();
+  const { data } = useQuery(GET_ME);
   const { isCommenting, commentRecipe, } = useRecipeStore();
 
   const formik = useFormik({
@@ -27,7 +29,7 @@ export const Comments = ({ recipe }) => {
       </div>
 
       {
-        user && (
+        data?.getMe.name && (
           <form
             className="mt-4 w-full lg:w-8/12"
             onSubmit={ formik.handleSubmit }
@@ -61,7 +63,7 @@ export const Comments = ({ recipe }) => {
         )
       }
 
-      <div className={ `w-full lg:w-8/12 ${ user ? 'mt-8' : 'mt-4' }` }>
+      <div className={ `w-full lg:w-8/12 ${ data?.getMe.name ? 'mt-8' : 'mt-4' }` }>
         {
           recipe.comments.map((comment, index) => (
             <div
