@@ -2,9 +2,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { format } from 'date-fns';
 
-import { useRecipeStore } from '../../hooks/useRecipeStore';
+import { useUserStore, useRecipeStore } from '../../hooks';
 
 export const Comments = ({ recipe }) => {
+  const { user } = useUserStore();
   const { isCommenting, commentRecipe, } = useRecipeStore();
 
   const formik = useFormik({
@@ -25,38 +26,42 @@ export const Comments = ({ recipe }) => {
         Discussion ({ recipe.commentsCount })
       </div>
 
-      <form
-        className="mt-4 w-full lg:w-8/12"
-        onSubmit={ formik.handleSubmit }
-      >
-        <textarea
-          className="p-2 w-full text-sm text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:ring-0 focus:outline-none"
-          rows="4"
-          placeholder="Write a comment..."
-          id="comment"
-          name="comment"
-          value={ formik.values.comment }
-          onChange={ formik.handleChange }
-          onBlur={ formik.handleBlur }
-        ></textarea>
-        {
-          formik.touched.comment && formik.errors.comment ? (
-            <div className="mt-2 mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
-              <p>{ formik.errors.comment }</p>
-            </div>
-          ) : null
-        }
+      {
+        user && (
+          <form
+            className="mt-4 w-full lg:w-8/12"
+            onSubmit={ formik.handleSubmit }
+          >
+            <textarea
+              className="p-2 w-full text-sm text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:ring-0 focus:outline-none"
+              rows="4"
+              placeholder="Write a comment..."
+              id="comment"
+              name="comment"
+              value={ formik.values.comment }
+              onChange={ formik.handleChange }
+              onBlur={ formik.handleBlur }
+            ></textarea>
+            {
+              formik.touched.comment && formik.errors.comment ? (
+                <div className="mt-2 mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
+                  <p>{ formik.errors.comment }</p>
+                </div>
+              ) : null
+            }
 
-        <button
-          type="submit"
-          className="mt-2 w-48 primary-btn"
-          disabled={ isCommenting }
-        >
-          <span className="text-white">Post comment</span>
-        </button>
-      </form>
+            <button
+              type="submit"
+              className="mt-2 w-48 primary-btn"
+              disabled={ isCommenting }
+            >
+              <span className="text-white">Post comment</span>
+            </button>
+          </form>
+        )
+      }
 
-      <div className="mt-8 w-full lg:w-8/12">
+      <div className={ `w-full lg:w-8/12 ${ user ? 'mt-8' : 'mt-4' }` }>
         {
           recipe.comments.map((comment, index) => (
             <div
