@@ -71,14 +71,16 @@ export const useUserStore = () => {
 
   const startUpdateAccount = async ({ age, favoriteRecipe, name, imageUrl }) => {
     dispatch( updating() );
+    let variables = { age, favoriteRecipe, name };
+
+    if (imageUrl) {
+      variables.imageUrl = imageUrl
+    }
 
     client.mutate({
       mutation: UPDATE_ACCOUNT,
       variables: {
-        age,
-        favoriteRecipe,
-        name,
-        imageUrl,
+        ...variables
       }
     }).then(() => {
       Toast.fire({ icon: 'success', title: 'Account updated successfully', });

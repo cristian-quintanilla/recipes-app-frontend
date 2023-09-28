@@ -92,7 +92,8 @@ export const EditRecipeForm = ({ recipe }) => {
         data.imageUrl = imageUrl;
       }
 
-      startUpdateRecipe(data);
+      console.log(data);
+      // startUpdateRecipe(data);
 		},
 	});
 
@@ -108,40 +109,28 @@ export const EditRecipeForm = ({ recipe }) => {
     let ingredients = [ ...formik.values.ingredients ];
     ingredients.push({ name: '' });
 
-    formik.setValues({
-      ...formik.values,
-      ingredients: ingredients,
-    });
+    formik.setValues({ ...formik.values, ingredients });
   }
 
   const onDeleteIngredient = index => {
     let ingredients = [ ...formik.values.ingredients ];
     ingredients.splice(index, 1);
 
-    formik.setValues({
-      ...formik.values,
-      ingredients: ingredients,
-    });
+    formik.setValues({ ...formik.values, ingredients });
   }
 
   const onAddStep = () => {
     let steps = [ ...formik.values.steps ];
     steps.push({ name: '' });
 
-    formik.setValues({
-      ...formik.values,
-      steps: steps,
-    });
+    formik.setValues({ ...formik.values, steps });
   }
 
   const onDeleteStep = index => {
-    let step = [ ...formik.values.step ];
-    step.splice(index, 1);
+    let steps = [ ...formik.values.steps ];
+    steps.splice(index, 1);
 
-    formik.setValues({
-      ...formik.values,
-      step: step,
-    });
+    formik.setValues({ ...formik.values, steps });
   }
 
   return (
@@ -158,11 +147,9 @@ export const EditRecipeForm = ({ recipe }) => {
           onClick={ () => imageUrlRef.current.click() }
         >
           {
-            imageUrl && <img src={ imageUrl } alt="Image" className="h-32 w-32 rounded-full" />
-          }
-
-          {
-            !imageUrl && <i className="fa-solid fa-camera text-5xl text-gray-300"></i>
+            imageUrl
+            ? <img src={ imageUrl } alt="Image" className="h-32 w-32 rounded-full object-cover" />
+            : <i className="fa-solid fa-camera text-5xl text-gray-300"></i>
           }
         </div>
 
@@ -186,13 +173,11 @@ export const EditRecipeForm = ({ recipe }) => {
           onBlur={ formik.handleBlur }
         />
 
-        {
-          formik.touched.name && formik.errors.name ? (
-            <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-              <p>{ formik.errors.name }</p>
-            </div>
-          ) : null
-        }
+        {formik.touched.name && formik.errors.name && (
+          <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+            <p>{ formik.errors.name }</p>
+          </div>
+        )}
       </div>
 
       <div>
@@ -206,13 +191,11 @@ export const EditRecipeForm = ({ recipe }) => {
           onBlur={ formik.handleBlur }
         ></textarea>
 
-        {
-          formik.touched.description && formik.errors.description ? (
-            <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-              <p>{ formik.errors.description }</p>
-            </div>
-          ) : null
-        }
+        {formik.touched.description && formik.errors.description && (
+          <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+            <p>{ formik.errors.description }</p>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col md:flex-row gap-4">
@@ -230,20 +213,16 @@ export const EditRecipeForm = ({ recipe }) => {
           >
             <option value="" disabled>Select a category</option>
 
-            {
-              data?.categories.map(category => (
-                <option key={ category.id } value={ category.id }>{ category.name }</option>
-              ))
-            }
+            {data?.categories.map(category => (
+              <option key={ category.id } value={ category.id }>{ category.name }</option>
+            ))}
           </select>
 
-          {
-            formik.touched.category && formik.errors.category ? (
-              <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-                <p>{ formik.errors.category }</p>
-              </div>
-            ) : null
-          }
+          {formik.touched.category && formik.errors.category && (
+            <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+              <p>{ formik.errors.category }</p>
+            </div>
+          )}
         </div>
 
         <div className="flex-1 w-full">
@@ -261,13 +240,11 @@ export const EditRecipeForm = ({ recipe }) => {
             onBlur={ formik.handleBlur }
           />
 
-          {
-            formik.touched.servings && formik.errors.servings ? (
-              <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-                <p>{ formik.errors.servings }</p>
-              </div>
-            ) : null
-          }
+          {formik.touched.servings && formik.errors.servings && (
+            <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+              <p>{ formik.errors.servings }</p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -288,18 +265,14 @@ export const EditRecipeForm = ({ recipe }) => {
               >
                 <option value="" disabled>Hours</option>
 
-                {
-                  hours.map(hour => <option key={ hour } value={ hour }>{ hour }</option>)
-                }
+                { hours.map(hour => <option key={ hour } value={ hour }>{ hour }</option>) }
               </select>
 
-              {
-                formik.touched.timePreparationHour && formik.errors.timePreparationHour ? (
-                  <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-                    <p>{ formik.errors.timePreparationHour }</p>
-                  </div>
-                ) : null
-              }
+              {formik.touched.timePreparationHour && formik.errors.timePreparationHour && (
+                <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+                  <p>{ formik.errors.timePreparationHour }</p>
+                </div>
+              )}
             </div>
 
             <div className="flex-1 flex flex-col">
@@ -312,18 +285,14 @@ export const EditRecipeForm = ({ recipe }) => {
               >
                 <option value="" disabled>Minutes</option>
 
-                {
-                  minutes.map(minute => <option key={ minute } value={ minute }>{ minute }</option>)
-                }
+                { minutes.map(minute => <option key={ minute } value={ minute }>{ minute }</option>) }
               </select>
 
-              {
-                formik.touched.timePreparationMinutes && formik.errors.timePreparationMinutes ? (
-                  <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-                    <p>{ formik.errors.timePreparationMinutes }</p>
-                  </div>
-                ) : null
-              }
+              {formik.touched.timePreparationMinutes && formik.errors.timePreparationMinutes && (
+                <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+                  <p>{ formik.errors.timePreparationMinutes }</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -344,18 +313,14 @@ export const EditRecipeForm = ({ recipe }) => {
               >
                 <option value="" disabled>Hours</option>
 
-                {
-                  hours.map(hour => <option key={ hour } value={ hour }>{ hour }</option>)
-                }
+                { hours.map(hour => <option key={ hour } value={ hour }>{ hour }</option>) }
               </select>
 
-              {
-                formik.touched.timeCookingHour && formik.errors.timeCookingHour ? (
-                  <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-                    <p>{ formik.errors.timeCookingHour }</p>
-                  </div>
-                ) : null
-              }
+              {formik.touched.timeCookingHour && formik.errors.timeCookingHour && (
+                <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+                  <p>{ formik.errors.timeCookingHour }</p>
+                </div>
+              )}
             </div>
 
             <div className="flex-1 flex flex-col">
@@ -368,18 +333,14 @@ export const EditRecipeForm = ({ recipe }) => {
               >
                 <option value="" disabled>Minutes</option>
 
-                {
-                  minutes.map(minute => <option key={ minute } value={ minute }>{ minute }</option>)
-                }
+                { minutes.map(minute => <option key={ minute } value={ minute }>{ minute }</option>) }
               </select>
 
-              {
-                formik.touched.timeCookingMinutes && formik.errors.timeCookingMinutes ? (
-                  <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-                    <p>{ formik.errors.timeCookingMinutes }</p>
-                  </div>
-                ) : null
-              }
+              {formik.touched.timeCookingMinutes && formik.errors.timeCookingMinutes && (
+                <div className="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+                  <p>{ formik.errors.timeCookingMinutes }</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -422,13 +383,11 @@ export const EditRecipeForm = ({ recipe }) => {
                   onChange={ formik.handleChange }
                 />
 
-                {
-                  touchedName && errorName && (
-                    <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-                      <p>{ formik.errors.ingredients[index].name }</p>
-                    </div>
-                  )
-                }
+                {touchedName && errorName && (
+                  <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+                    <p>{ formik.errors.ingredients[index].name }</p>
+                  </div>
+                )}
               </div>
             )
           })}
@@ -472,13 +431,11 @@ export const EditRecipeForm = ({ recipe }) => {
                   onChange={ formik.handleChange }
                 />
 
-                {
-                  touchedName && errorName && (
-                    <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
-                      <p>{ formik.errors.steps[index].name }</p>
-                    </div>
-                  )
-                }
+                {touchedName && errorName && (
+                  <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full">
+                    <p>{ formik.errors.steps[index].name }</p>
+                  </div>
+                )}
               </div>
             )
           })}

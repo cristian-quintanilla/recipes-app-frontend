@@ -1,26 +1,15 @@
 import { useQuery } from '@apollo/client';
-import { useFormik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { format } from 'date-fns';
 
+import { TextArea } from '../forms';
 import { useRecipeStore } from '../../hooks';
 import { GET_ME } from '../../graphql/queries';
 
 export const Comments = ({ recipe }) => {
   const { data } = useQuery(GET_ME);
   const { isCommenting, commentRecipe, } = useRecipeStore();
-
-  const formik = useFormik({
-		initialValues: {
-			comment: '',
-		},
-		validationSchema: Yup.object({
-			comment: Yup.string().required('Comment is required.'),
-		}),
-		onSubmit: values => {
-      commentRecipe(recipe.id, values.comment);
-		}
-	});
 
   return (
     <div>
@@ -30,36 +19,38 @@ export const Comments = ({ recipe }) => {
 
       {
         data?.getMe.name && (
-          <form
-            className="mt-4 w-full lg:w-8/12"
-            onSubmit={ formik.handleSubmit }
-          >
-            <textarea
-              className="p-2 w-full text-sm text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:ring-0 focus:outline-none"
-              rows="4"
-              placeholder="Write a comment..."
-              id="comment"
-              name="comment"
-              value={ formik.values.comment }
-              onChange={ formik.handleChange }
-              onBlur={ formik.handleBlur }
-            ></textarea>
-            {
-              formik.touched.comment && formik.errors.comment ? (
-                <div className="mt-2 mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
-                  <p>{ formik.errors.comment }</p>
-                </div>
-              ) : null
+          <Formik
+            initialValues={{
+              comment: '',
+            }}
+            validationSchema={
+              Yup.object({
+                comment: Yup.string().required('Comment is required.'),
+              })
             }
+            onSubmit={(values, { resetForm }) => {
+              commentRecipe(recipe.id, values.comment);
+              resetForm();
+            }}
+          >
+            {() => (
+              <Form className="mt-4 w-full lg:w-8/12">
+                <TextArea
+                  name="comment"
+                  placeholder="Write a comment..."
+                  rows="4"
+                />
 
-            <button
-              type="submit"
-              className="mt-2 w-48 primary-btn"
-              disabled={ isCommenting }
-            >
-              <span className="text-white">Post comment</span>
-            </button>
-          </form>
+                <button
+                  type="submit"
+                  className="mt-4 w-48 primary-btn"
+                  disabled={ isCommenting }
+                >
+                  <span className="text-white">Post comment</span>
+                </button>
+              </Form>
+            )}
+          </Formik>
         )
       }
 

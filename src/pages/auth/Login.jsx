@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useFormik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { Header } from '../../components';
 import { useAuthStore } from '../../hooks';
 import { Toast } from '../../helpers/toast';
+import { Header, InputPassword, InputText } from '../../components';
 
 export const Login = () => {
-  const [ show, setShow ] = useState(false);
   const { error, status, startLogin } = useAuthStore();
 
   useEffect(() => {
@@ -16,20 +15,6 @@ export const Login = () => {
       Toast.fire({ icon: 'error', title: error, });
     }
   }, [error]);
-
-  const formik = useFormik({
-		initialValues: {
-			email: '',
-			password: ''
-		},
-		validationSchema: Yup.object({
-			email: Yup.string().required('Email is required.').email('Invalid email.'),
-			password: Yup.string().required('Password is required.').min(6, 'Password should have at least 6 letters.'),
-		}),
-		onSubmit: values => {
-      startLogin(values);
-		}
-	});
 
   return (
     <main className="h-screen flex flex-col">
@@ -62,62 +47,44 @@ export const Login = () => {
         <div className="flex-1">
           <span className="hidden md:block font-medium text-3xl mb-8">Sign in</span>
 
-          <form onSubmit={ formik.handleSubmit }>
-            <div className="mb-4">
-              <input
-                className="bg-white-purple py-2 px-6 outline-none rounded-md w-full lg:w-2/3"
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter email address"
-                value={ formik.values.email }
-                onChange={ formik.handleChange }
-                onBlur={ formik.handleBlur }
-              />
-            </div>
-            {
-              formik.touched.email && formik.errors.email ? (
-                <div className="mt-2 mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
-                  <p>{ formik.errors.email }</p>
-                </div>
-              ) : null
+          <Formik
+            initialValues={{
+              email: '',
+              password: ''
+            }}
+            validationSchema={
+              Yup.object({
+                email: Yup.string().required('Email is required.').email('Invalid email.'),
+                password: Yup.string().required('Password is required.').min(6, 'Password should have at least 6 letters.'),
+              })
             }
+            onSubmit={values => {
+              startLogin(values);
+            }}
+          >
+            {() => (
+              <Form className="flex flex-col gap-4">
+                <InputText
+                  type="email"
+                  name="email"
+                  placeholder="Enter email address"
+                />
 
-            <div className="mb-4">
-              <input
-                className="bg-white-purple py-2 px-6 outline-none rounded-md w-full lg:w-2/3"
-                type={ show ? "text" : "password" }
-                placeholder="Password"
-                id="password"
-                name="password"
-                value={ formik.values.password }
-                onChange={ formik.handleChange }
-                onBlur={ formik.handleBlur }
-              />
+                <InputPassword
+                  name="password"
+                  placeholder="Password"
+                />
 
-              <span
-                className={ `-ml-8 z-10 fa fa-fw cursor-pointer ${ show ? 'fa-eye-slash' : 'fa-eye' }` }
-                onClick={ () => setShow(!show) }
-              ></span>
-            </div>
-            {
-              formik.touched.password && formik.errors.password ? (
-                <div className="mt-2 mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-2 w-full lg:w-2/3">
-                  <p>{ formik.errors.password }</p>
-                </div>
-              ) : null
-            }
-
-            <div>
-              <button
-                type="submit"
-                className="primary-btn"
-                disabled={ status === 'checking' ? true : false }
-              >
-                <span className="text-white text-base">Login</span>
-              </button>
-            </div>
-          </form>
+                <button
+                  type="submit"
+                  className="primary-btn w-auto md:w-96"
+                  disabled={ status === 'checking' ? true : false }
+                >
+                  <span className="text-white text-base">Login</span>
+                </button>
+              </Form>
+            )}
+          </Formik>
         </div>
       </section>
     </main>
