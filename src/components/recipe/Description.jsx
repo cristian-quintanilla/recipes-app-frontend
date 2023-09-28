@@ -16,7 +16,7 @@ export const Description = ({ recipe }) => {
         <div className="flex items-center gap-2">
           <img
             className="h-8 w-auto rounded-full"
-            src={ recipe.user.imageUrl ? recipe.user.imageUrl : '/assets/images/camera.png' }
+            src={ recipe.user.imageUrl ? recipe.user.imageUrl : '/camera.png' }
             alt={ recipe.user.name }
           />
 

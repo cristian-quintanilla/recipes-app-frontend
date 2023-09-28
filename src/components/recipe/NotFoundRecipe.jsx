@@ -32,10 +32,7 @@ export const NotFoundRecipe = () => {
             </div>
 
             <div>
-              <img
-                alt="404"
-                src="/assets/images/404.png"
-              />
+              <img alt="404" src="/404.png" />
             </div>
           </div>
         </div>

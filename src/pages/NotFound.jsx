@@ -31,19 +31,13 @@ export const NotFound = () => {
           </div>
 
           <div>
-            <img
-              alt="404"
-              src="/assets/images/404.png"
-            />
+            <img alt="404" src="/404.png" />
           </div>
         </div>
       </div>
 
       <div>
-        <img
-          alt="Connector"
-          src="/assets/images/connector.png"
-        />
+        <img alt="Connector" src="/connector.png" />
       </div>
     </div>
   );

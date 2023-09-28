@@ -66,7 +66,7 @@ export const Comments = ({ recipe }) => {
                   <p className="inline-flex items-center mr-3 text-base font-semibold text-gray-900">
                     <img
                       className="mr-2 w-6 h-6 rounded-full"
-                      src={ comment.user.imageUrl }
+                      src={ comment.user.imageUrl ? comment.user.imageUrl : '/camera.png' }
                       alt={ comment.user.name }
                     /> { comment.user.name }
                   </p>

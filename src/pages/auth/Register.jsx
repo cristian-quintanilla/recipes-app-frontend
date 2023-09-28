@@ -38,7 +38,7 @@ export const Register = () => {
           <div className="hidden lg:block absolute right-2 top-12">
             <img
               className="h-auto w-72"
-              src="/assets/images/auth.png"
+              src="/auth.png"
               alt="Auth"
             />
           </div>
