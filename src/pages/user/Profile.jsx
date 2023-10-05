@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
+import Swal from 'sweetalert2';
 
-import { useUserStore } from '../../hooks';
 import { GET_ME } from '../../graphql/queries';
 import { Header, UpdateAccount, UpdatePassword } from '../../components';
+import { Toast } from '../../helpers/toast';
+import { useUserStore } from '../../hooks';
 
 export const Profile = () => {
   const { data } = useQuery(GET_ME);
@@ -16,7 +18,19 @@ export const Profile = () => {
   }, [error]);
 
   const deleteAccount = () => {
-    startDeleteAccount();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        startDeleteAccount();
+      }
+    })
   }
 
   return (

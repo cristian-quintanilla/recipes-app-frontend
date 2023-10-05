@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useApolloClient } from '@apollo/client';
+import Swal from 'sweetalert2';
 
 import { Toast } from '../helpers/toast';
 import { useAuthStore } from './useAuthStore';
@@ -50,6 +51,12 @@ export const useUserStore = () => {
     .then(({ data }) => {
       const message = data.deleteAccount.message;
       Toast.fire({ icon: 'success', title: message, });
+
+      Swal.fire(
+        'Deleted!',
+        'Your account has been deleted.',
+        'success'
+      );
 
       dispatch( clearError() );
       startLogout();
