@@ -92,8 +92,7 @@ export const EditRecipeForm = ({ recipe }) => {
         data.imageUrl = imageUrl;
       }
 
-      console.log(data);
-      // startUpdateRecipe(data);
+      startUpdateRecipe(data);
 		},
 	});
 
