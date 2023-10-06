@@ -1,11 +1,13 @@
-import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { useRecipeStore } from '../../hooks/useRecipeStore';
+import { Toast } from '../../helpers/toast';
+import { useAuthStore, useRecipeStore } from '../../hooks';
 import { Comments, Description, Header, Information, NotFoundRecipe } from '../../components';
 
 export const Recipe = () => {
   const { id } = useParams();
+  const { user } = useAuthStore();
   const { isLoading, isLiking, recipe, getRecipe, likeRecipe } = useRecipeStore();
 
   useEffect(() => {
@@ -13,7 +15,11 @@ export const Recipe = () => {
   }, []);
 
   const like = recipeId => {
-    likeRecipe(recipeId);
+    if (!user) {
+      Toast.fire({ icon: 'error', title: 'You need to be logged in to like the recipe' });
+    } else {
+      likeRecipe(recipeId);
+    }
   }
 
   return (
@@ -37,7 +43,10 @@ export const Recipe = () => {
             }}
           >
             <div className="ml-4 lg:ml-8 mb-8 lg:mb-4 flex items-center gap-4">
-              <button className="bg-white rounded-full h-12 w-12 flex flex-col items-center justify-center">
+              <button
+                className="bg-white rounded-full h-12 w-12 flex flex-col items-center justify-center"
+                onClick={ () => like(id) }
+              >
                 {
                   !recipe.userLiked ? (
                     <span
@@ -45,7 +54,6 @@ export const Recipe = () => {
                         `fa-regular fa-heart text-pink-500 text-2xl
                         ${ isLiking ? 'cursor-not-allowed opacity-50' : '' }`
                       }
-                      onClick={ () => like(id) }
                     ></span>
                   ) : (
                     <span
