@@ -41,6 +41,7 @@ export const GET_RECIPE = gql`
           email
           imageUrl
           name
+          _id
         }
       }
       ingredients {

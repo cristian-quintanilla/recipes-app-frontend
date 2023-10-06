@@ -9,7 +9,11 @@ import { GET_ME } from '../../graphql/queries';
 
 export const Comments = ({ recipe }) => {
   const { data } = useQuery(GET_ME);
-  const { isCommenting, commentRecipe, } = useRecipeStore();
+  const { isCommenting, commentRecipe } = useRecipeStore();
+
+  const goToUser = userId => {
+    window.open(`${ window.location.origin }/user/${ userId }`, '_blank');
+  }
 
   return (
     <div>
@@ -68,11 +72,18 @@ export const Comments = ({ recipe }) => {
                       className="mr-2 w-6 h-6 rounded-full"
                       src={ comment.user.imageUrl ? comment.user.imageUrl : '/camera.png' }
                       alt={ comment.user.name }
-                    /> { comment.user.name }
+                    />
+
+                    <span
+                      className="cursor-pointer"
+                      onClick={ () => goToUser(comment.user._id) }
+                    >
+                      { comment.user.name }
+                    </span>
                   </p>
 
                   <p className="text-sm text-gray-600">
-                    { format (new Date(comment.date), "MMMM do',' yyyy") }
+                    { format(new Date(comment.date), "MMMM do',' yyyy 'at' h:m a") }
                   </p>
                 </div>
               </div>
