@@ -37,6 +37,7 @@ const Router = () => {
           <Route path="/login" element={ <Login /> } />
           <Route path="/recipe/:id" element={ <Recipe /> } />
           <Route path="/home" element={ <SearchRecipes /> } />
+          <Route path="/user/:id" element={ <User /> } />
 
           <Route path="/*" element={<Navigate to="/login" />} />
         </>
@@ -49,7 +50,6 @@ const Router = () => {
           <Route path="/recipe/:id" element={ <Recipe /> } />
           <Route path="/recipe/:id/edit" element={ <EditRecipe /> } />
           <Route path="/my-recipes" element={ <MyRecipes /> } />
-          <Route path="/user/:id" element={ <User /> } />
 
           <Route path="/*" element={<Navigate to="/me" />} />
         </>
