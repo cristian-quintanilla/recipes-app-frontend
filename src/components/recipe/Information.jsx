@@ -36,7 +36,7 @@ export const Information = ({ recipe }) => {
       </div>
 
       <div className="mt-6 flex justify-center">
-        <span className="py-2 px-8 bg-purple text-white font-semibold">
+        <span className="py-2 px-8 bg-dark-purple text-white font-semibold">
           { recipe.category.name }
         </span>
       </div>
