@@ -37,23 +37,21 @@ export const Header = () => {
             </div>
 
             <div className="relative inline-block">
-              <span
-                className="text-lg text-zinc-500 fa-solid fa-caret-down"
-              ></span>
+              <span className="text-lg text-zinc-500 fa-solid fa-caret-down"></span>
 
               {
                 menuOpen ? (
                   <div className="absolute top-10 right-0 z-10 w-56 rounded-md bg-white shadow-lg border border-zinc-300">
-                    <div className="py-3 px-4 flex flex-col gap-3">
+                    <div className="p-3 flex flex-col gap-3">
                       <NavLink
-                        className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
+                        className="text-gray-700 block text-sm cursor-pointer py-1 px-2 rounded-sm hover:bg-zinc-200"
                         to="/me"
                       >
                         Profile
                       </NavLink>
 
                       <NavLink
-                        className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
+                        className="text-gray-700 block text-sm cursor-pointer py-1 px-2 rounded-sm hover:bg-zinc-200"
                         to="/home"
                       >
                         Search Recipes
@@ -61,21 +59,21 @@ export const Header = () => {
 
                       {/* User */}
                       <NavLink
-                        className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
+                        className="text-gray-700 block text-sm cursor-pointer py-1 px-2 rounded-sm hover:bg-zinc-200"
                         to="/create"
                       >
                         Create Recipe
                       </NavLink>
 
                       <NavLink
-                        className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
+                        className="text-gray-700 block text-sm cursor-pointer py-1 px-2 rounded-sm hover:bg-zinc-200"
                         to="/my-recipes"
                       >
                         My Recipes
                       </NavLink>
 
                       <span
-                        className="text-gray-700 hover:text-dark-purple block text-sm cursor-pointer"
+                        className="text-gray-700 block text-sm cursor-pointer py-1 px-2 rounded-sm hover:bg-zinc-200"
                         onClick={ startLogout }
                       >
                         Sign Out

@@ -47,7 +47,7 @@ export const UpdateAccount = ({ data }) => {
             >
               {
                 (data?.getMe.imageUrl && !imageUrl) && (
-                  <img src={ data?.getMe.imageUrl } alt={ data?.getMe.name } className="rounded-full" />
+                  <img src={ data?.getMe.imageUrl } alt={ data?.getMe.name } className="rounded-full object-cover w-32 h-32" />
                 )
               }
 
